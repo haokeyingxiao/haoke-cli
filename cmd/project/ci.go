@@ -11,10 +11,10 @@ import (
 	"strings"
 
 	"dario.cat/mergo"
-	"github.com/FriendsOfShopware/shopware-cli/extension"
-	"github.com/FriendsOfShopware/shopware-cli/internal/phpexec"
-	"github.com/FriendsOfShopware/shopware-cli/logging"
-	"github.com/FriendsOfShopware/shopware-cli/shop"
+	"github.com/haokeyingxiao/haoke-cli/extension"
+	"github.com/haokeyingxiao/haoke-cli/internal/phpexec"
+	"github.com/haokeyingxiao/haoke-cli/logging"
+	"github.com/haokeyingxiao/haoke-cli/shop"
 	"github.com/spf13/cobra"
 )
 

@@ -11,9 +11,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/FriendsOfShopware/shopware-cli/internal/phplint"
-	"github.com/FriendsOfShopware/shopware-cli/logging"
-	"github.com/FriendsOfShopware/shopware-cli/version"
+	"github.com/haokeyingxiao/haoke-cli/internal/phplint"
+	"github.com/haokeyingxiao/haoke-cli/logging"
+	"github.com/haokeyingxiao/haoke-cli/version"
 )
 
 type PlatformPlugin struct {

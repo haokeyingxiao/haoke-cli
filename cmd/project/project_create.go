@@ -17,13 +17,13 @@ import (
 	"github.com/manifoldco/promptui"
 	"github.com/spf13/cobra"
 
-	"github.com/FriendsOfShopware/shopware-cli/logging"
-	"github.com/FriendsOfShopware/shopware-cli/version"
+	"github.com/haokeyingxiao/haoke-cli/logging"
+	"github.com/haokeyingxiao/haoke-cli/version"
 )
 
 var projectCreateCmd = &cobra.Command{
 	Use:   "create [name] [version]",
-	Short: "Create a new Shopware 6 project",
+	Short: "Create a new HaoKe 6 project",
 	Args:  cobra.MinimumNArgs(1),
 	ValidArgsFunction: func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 		if len(args) == 1 {
@@ -53,7 +53,7 @@ var projectCreateCmd = &cobra.Command{
 			return err
 		}
 
-		logging.FromContext(cmd.Context()).Infof("Using Symfony Flex to create a new Shopware 6 project")
+		logging.FromContext(cmd.Context()).Infof("Using Symfony Flex to create a new HaoKe 6 project")
 
 		filteredVersions, err := getFilteredInstallVersions(cmd.Context())
 		if err != nil {
@@ -89,7 +89,7 @@ var projectCreateCmd = &cobra.Command{
 			return fmt.Errorf("cannot find version %s", result)
 		}
 
-		logging.FromContext(cmd.Context()).Infof("Setting up Shopware %s", chooseVersion)
+		logging.FromContext(cmd.Context()).Infof("Setting up Haoke %s", chooseVersion)
 
 		composerJson, err := generateComposerJson(chooseVersion, strings.Contains(chooseVersion, "rc"))
 		if err != nil {
@@ -171,7 +171,7 @@ func fetchAvailableShopwareVersions(ctx context.Context) ([]string, error) {
 
 	defer func() {
 		if err := resp.Body.Close(); err != nil {
-			logging.FromContext(ctx).Errorf("fetchAvailableShopwareVersions: %v", err)
+			logging.FromContext(ctx).Errorf("fetchAvailableHaokeVersions: %v", err)
 		}
 	}()
 

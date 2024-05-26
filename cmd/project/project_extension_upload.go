@@ -12,14 +12,14 @@ import (
 	"path/filepath"
 	"strings"
 
-	adminSdk "github.com/friendsofshopware/go-shopware-admin-api-sdk"
+	adminSdk "github.com/haokeyingxiao/go-haoke-admin-api-sdk"
 	cp "github.com/otiai10/copy"
 	"github.com/spf13/cobra"
 
-	"github.com/FriendsOfShopware/shopware-cli/extension"
-	"github.com/FriendsOfShopware/shopware-cli/logging"
-	"github.com/FriendsOfShopware/shopware-cli/shop"
-	"github.com/FriendsOfShopware/shopware-cli/version"
+	"github.com/haokeyingxiao/haoke-cli/extension"
+	"github.com/haokeyingxiao/haoke-cli/logging"
+	"github.com/haokeyingxiao/haoke-cli/shop"
+	"github.com/haokeyingxiao/haoke-cli/version"
 )
 
 var projectExtensionUploadCmd = &cobra.Command{

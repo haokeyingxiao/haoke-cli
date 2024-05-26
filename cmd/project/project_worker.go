@@ -10,12 +10,12 @@ import (
 	"sync"
 	"syscall"
 
-	"github.com/FriendsOfShopware/shopware-cli/internal/phpexec"
-	"github.com/FriendsOfShopware/shopware-cli/shop"
+	"github.com/haokeyingxiao/haoke-cli/internal/phpexec"
+	"github.com/haokeyingxiao/haoke-cli/shop"
 
 	"github.com/spf13/cobra"
 
-	"github.com/FriendsOfShopware/shopware-cli/logging"
+	"github.com/haokeyingxiao/haoke-cli/logging"
 )
 
 var projectWorkerCmd = &cobra.Command{

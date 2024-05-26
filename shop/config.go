@@ -8,7 +8,7 @@ import (
 	"dario.cat/mergo"
 
 	"github.com/doutorfinancas/go-mad/core"
-	adminSdk "github.com/friendsofshopware/go-shopware-admin-api-sdk"
+	adminSdk "github.com/haokeyingxiao/go-haoke-admin-api-sdk"
 	"github.com/google/uuid"
 	"gopkg.in/yaml.v3"
 )

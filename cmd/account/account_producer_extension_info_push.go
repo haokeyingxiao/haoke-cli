@@ -13,9 +13,9 @@ import (
 
 	"github.com/spf13/cobra"
 
-	accountApi "github.com/FriendsOfShopware/shopware-cli/account-api"
-	"github.com/FriendsOfShopware/shopware-cli/extension"
-	"github.com/FriendsOfShopware/shopware-cli/logging"
+	accountApi "github.com/haokeyingxiao/haoke-cli/account-api"
+	"github.com/haokeyingxiao/haoke-cli/extension"
+	"github.com/haokeyingxiao/haoke-cli/logging"
 )
 
 var accountCompanyProducerExtensionInfoPushCmd = &cobra.Command{

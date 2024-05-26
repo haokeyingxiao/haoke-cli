@@ -8,7 +8,7 @@ builds:
   - env:
       - CGO_ENABLED=0
     binary: shopware-cli
-    ldflags: -s -w -X 'github.com/FriendsOfShopware/shopware-cli/cmd.version={{ .Version }}'
+    ldflags: -s -w -X 'github.com/haokeyingxiao/haoke-cli/cmd.version={{ .Version }}'
     flags:
       - -trimpath
     goos:
@@ -267,7 +267,7 @@ nfpms:
   -
     package_name: shopware-cli
     vendor: FriendsOfShopware
-    homepage: https://github.com/FriendsOfShopware/shopware-cli/
+    homepage: https://github.com/haokeyingxiao/haoke-cli/
     maintainer: Shyim <github@shyim.de>
     description: A cli which contains handy helpful commands for daily Shopware tasks
     license: MIT

@@ -7,7 +7,7 @@ import (
 	"os"
 	"path"
 
-	"github.com/FriendsOfShopware/shopware-cli/version"
+	"github.com/haokeyingxiao/haoke-cli/version"
 )
 
 type ShopwareBundle struct {

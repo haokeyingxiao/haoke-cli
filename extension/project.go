@@ -4,16 +4,16 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/FriendsOfShopware/shopware-cli/shop"
+	"github.com/haokeyingxiao/haoke-cli/shop"
 	"os"
 	"path"
 	"path/filepath"
 	"regexp"
 	"strings"
 
-	"github.com/FriendsOfShopware/shopware-cli/internal/asset"
-	"github.com/FriendsOfShopware/shopware-cli/logging"
-	"github.com/FriendsOfShopware/shopware-cli/version"
+	"github.com/haokeyingxiao/haoke-cli/internal/asset"
+	"github.com/haokeyingxiao/haoke-cli/logging"
+	"github.com/haokeyingxiao/haoke-cli/version"
 )
 
 func GetShopwareProjectConstraint(project string) (*version.Constraints, error) {

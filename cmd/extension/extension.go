@@ -6,7 +6,7 @@ import (
 
 var extensionRootCmd = &cobra.Command{
 	Use:   "extension",
-	Short: "Shopware Extension utilities",
+	Short: "HaoKe Extension utilities",
 }
 
 func Register(rootCmd *cobra.Command) {

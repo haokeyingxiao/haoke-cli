@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
-	adminSdk "github.com/friendsofshopware/go-shopware-admin-api-sdk"
+	adminSdk "github.com/haokeyingxiao/go-haoke-admin-api-sdk"
 )
 
 func newShopCredentials(config *Config) adminSdk.OAuthCredentials {

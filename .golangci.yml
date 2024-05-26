@@ -57,7 +57,7 @@ linters-settings:
     sections:
       - Standard
       - Default
-      - "Prefix(github.com/FriendsOfShopware/shopware-cli)"
+      - "Prefix(github.com/haokeyingxiao/haoke-cli)"
 
 issues:
   exclude-rules:

@@ -7,7 +7,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/FriendsOfShopware/shopware-cli/logging"
+	"github.com/haokeyingxiao/haoke-cli/logging"
 )
 
 func (c *Client) GetMyProfile(ctx context.Context) (*MyProfile, error) {

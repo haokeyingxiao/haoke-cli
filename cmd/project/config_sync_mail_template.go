@@ -7,10 +7,10 @@ import (
 	"os"
 	"path/filepath"
 
-	adminSdk "github.com/friendsofshopware/go-shopware-admin-api-sdk"
+	adminSdk "github.com/haokeyingxiao/go-haoke-admin-api-sdk"
 
-	"github.com/FriendsOfShopware/shopware-cli/logging"
-	"github.com/FriendsOfShopware/shopware-cli/shop"
+	"github.com/haokeyingxiao/haoke-cli/logging"
+	"github.com/haokeyingxiao/haoke-cli/shop"
 )
 
 type MailTemplateSync struct{}

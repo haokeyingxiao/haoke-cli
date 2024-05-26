@@ -3,8 +3,8 @@ package project
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/FriendsOfShopware/shopware-cli/extension"
-	"github.com/FriendsOfShopware/shopware-cli/shop"
+	"github.com/haokeyingxiao/haoke-cli/extension"
+	"github.com/haokeyingxiao/haoke-cli/shop"
 	"github.com/spf13/cobra"
 	"os"
 	"path"

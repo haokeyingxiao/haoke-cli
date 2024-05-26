@@ -12,7 +12,7 @@ import (
 
 	"github.com/sashabaranov/go-openai"
 
-	"github.com/FriendsOfShopware/shopware-cli/internal/git"
+	"github.com/haokeyingxiao/haoke-cli/internal/git"
 )
 
 //go:embed changelog.tpl

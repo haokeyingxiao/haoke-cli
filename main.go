@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 
-	"github.com/FriendsOfShopware/shopware-cli/cmd"
+	"github.com/haokeyingxiao/haoke-cli/cmd"
 )
 
 func main() {

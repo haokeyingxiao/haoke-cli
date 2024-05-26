@@ -10,10 +10,10 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/FriendsOfShopware/shopware-cli/internal/asset"
-	"github.com/FriendsOfShopware/shopware-cli/internal/esbuild"
-	"github.com/FriendsOfShopware/shopware-cli/logging"
-	"github.com/FriendsOfShopware/shopware-cli/version"
+	"github.com/haokeyingxiao/haoke-cli/internal/asset"
+	"github.com/haokeyingxiao/haoke-cli/internal/esbuild"
+	"github.com/haokeyingxiao/haoke-cli/logging"
+	"github.com/haokeyingxiao/haoke-cli/version"
 )
 
 const (

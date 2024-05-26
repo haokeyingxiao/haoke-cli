@@ -3,13 +3,13 @@ package account
 import (
 	"github.com/spf13/cobra"
 
-	account_api "github.com/FriendsOfShopware/shopware-cli/account-api"
-	"github.com/FriendsOfShopware/shopware-cli/internal/config"
+	account_api "github.com/haokeyingxiao/haoke-cli/account-api"
+	"github.com/haokeyingxiao/haoke-cli/internal/config"
 )
 
 var accountRootCmd = &cobra.Command{
 	Use:   "account",
-	Short: "Manage your Shopware Account",
+	Short: "Manage your HaoKe Account",
 }
 
 type ServiceContainer struct {

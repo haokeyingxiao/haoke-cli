@@ -19,7 +19,7 @@ jobs:
           cache: true
           check-latest: true
 
-      - name: Compile shopware-cli
+      - name: Compile haoke-cli
         run: go build
 
       - name: Checkout Plugin
@@ -29,34 +29,34 @@ jobs:
           ref: '75e2013752fd4db7535e4b72b3e3e8d57e531002'
           path: 'plugin'
 
-      - name: Create Shopware
-        run: ./shopware-cli project create shopware 6.5.7.3
+      - name: Create HaoKe
+        run: ./haoke-cli project create shopware 6.5.7.3
 
       - name: Build asset of Plugin
-        run: ./shopware-cli extension zip plugin
+        run: ./haoke-cli extension zip plugin
 
       - name: Build asset of Plugin without Git
-        run: ./shopware-cli extension zip plugin --disable-git --release
+        run: ./haoke-cli extension zip plugin --disable-git --release
 
       - name: Validate Plugin
-        run: ./shopware-cli extension validate FroshTools.zip
+        run: ./haoke-cli extension validate FroshTools.zip
 
       - name: Get Changelog
-        run: ./shopware-cli extension get-changelog FroshTools.zip
+        run: ./haoke-cli extension get-changelog FroshTools.zip
 
       - name: Build asset against custom PROJECT_ROOT
         env:
-          SHOPWARE_PROJECT_ROOT: ${{ github.workspace }}/shopware
+          HAOKE_PROJECT_ROOT: ${{ github.workspace }}/haoke
         run: |
           mv plugin/.shopware-extension.yml plugin/.shopware-extension-disable.yml
-          ./shopware-cli extension build plugin
+          ./haoke-cli extension build plugin
           mv plugin/.shopware-extension-disable.yml plugin/.shopware-extension.yml
 
       - name: Install a Storefront Plugin
-        working-directory: shopware
+        working-directory: haoke
         run: |
           composer require 'frosh/platform-filter-search:*' --no-interaction --no-scripts
           rm -rf vendor
 
       - name: Setup the project
-        run: ./shopware-cli project ci shopware
+        run: ./haoke-cli project ci haoke

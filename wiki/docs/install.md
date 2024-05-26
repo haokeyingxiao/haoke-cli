@@ -52,7 +52,7 @@ yay -S shopware-cli-bin
 
 ### Manually: deb,rpm apt packages
 
-Download the .deb, .rpm or .apk packages from the [releases](https://github.com/FriendsOfShopware/shopware-cli/releases/) page and install them with the appropriate tools.
+Download the .deb, .rpm or .apk packages from the [releases](https://github.com/haokeyingxiao/haoke-cli/releases/) page and install them with the appropriate tools.
 
 ### Nix
 
@@ -129,7 +129,7 @@ build:
 ### go install
 
 ```bash
-go install github.com/FriendsOfShopware/shopware-cli@latest
+go install github.com/haokeyingxiao/haoke-cli@latest
 ```
 
 ### ddev
@@ -144,7 +144,7 @@ RUN curl -1sLf 'https://dl.cloudsmith.io/public/friendsofshopware/stable/setup.d
 
 ## manually
 
-Download the pre-compiled binaries from the [releases](https://github.com/FriendsOfShopware/shopware-cli/releases/) page and copy them to the desired location.
+Download the pre-compiled binaries from the [releases](https://github.com/haokeyingxiao/haoke-cli/releases/) page and copy them to the desired location.
 
 ## Running with Docker
 
@@ -152,7 +152,7 @@ You can also use it within a Docker container. To do that, you'll need to execut
 
 Registries:
 
-- [ghcr.io/friendsofshopware/shopware-cli](https://github.com/FriendsOfShopware/shopware-cli/pkgs/container/shopware-cli)
+- [ghcr.io/friendsofshopware/shopware-cli](https://github.com/haokeyingxiao/haoke-cli/pkgs/container/shopware-cli)
 
 Example usage:
 
@@ -172,7 +172,7 @@ You can verify the image with cosign:
 
 ```
 cosign verify ghcr.io/friendsofshopware/shopware-cli \
-  --certificate-identity 'https://github.com/FriendsOfShopware/shopware-cli/.github/workflows/release.yml@refs/tags/0.1.69' \
+  --certificate-identity 'https://github.com/haokeyingxiao/haoke-cli/.github/workflows/release.yml@refs/tags/0.1.69' \
   --certificate-oidc-issuer 'https://token.actions.githubusercontent.com'
 ```
 
@@ -185,7 +185,7 @@ If you just want to build from source for whatever reason, follow these steps:
 ### clone:
 
 ```
-git clone https://github.com/FriendsOfShopware/shopware-cli
+git clone https://github.com/haokeyingxiao/haoke-cli
 cd shopware-cli
 ```
 

@@ -6,12 +6,12 @@ import (
 
 	"github.com/spf13/cobra"
 
-	accountApi "github.com/FriendsOfShopware/shopware-cli/account-api"
-	"github.com/FriendsOfShopware/shopware-cli/cmd/account"
-	"github.com/FriendsOfShopware/shopware-cli/cmd/extension"
-	"github.com/FriendsOfShopware/shopware-cli/cmd/project"
-	"github.com/FriendsOfShopware/shopware-cli/internal/config"
-	"github.com/FriendsOfShopware/shopware-cli/logging"
+	accountApi "github.com/haokeyingxiao/haoke-cli/account-api"
+	"github.com/haokeyingxiao/haoke-cli/cmd/account"
+	"github.com/haokeyingxiao/haoke-cli/cmd/extension"
+	"github.com/haokeyingxiao/haoke-cli/cmd/project"
+	"github.com/haokeyingxiao/haoke-cli/internal/config"
+	"github.com/haokeyingxiao/haoke-cli/logging"
 )
 
 var (
@@ -20,7 +20,7 @@ var (
 )
 
 var rootCmd = &cobra.Command{
-	Use:     "shopware-cli",
+	Use:     "haoke-cli",
 	Short:   "A cli for common Shopware tasks",
 	Long:    `This application contains some utilities like extension management`,
 	Version: version,
@@ -34,7 +34,7 @@ func Execute(ctx context.Context) {
 	}
 
 	ctx = logging.WithLogger(ctx, logging.NewLogger(verbose))
-	accountApi.SetUserAgent("shopware-cli/" + version)
+	accountApi.SetUserAgent("haoke-cli/" + version)
 
 	if err := rootCmd.ExecuteContext(ctx); err != nil {
 		logging.FromContext(ctx).Fatalln(err)
@@ -48,7 +48,7 @@ func init() {
 		_ = config.InitConfig(cfgFile)
 	})
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.shopware-cli.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.haoke-cli.yaml)")
 	rootCmd.PersistentFlags().Bool("verbose", false, "show debug output")
 
 	project.Register(rootCmd)

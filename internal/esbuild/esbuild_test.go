@@ -6,7 +6,7 @@ import (
 	"path"
 	"testing"
 
-	"github.com/FriendsOfShopware/shopware-cli/logging"
+	"github.com/haokeyingxiao/haoke-cli/logging"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -4,7 +4,7 @@ import (
 	_ "embed"
 	"encoding/json"
 	"fmt"
-	"github.com/FriendsOfShopware/shopware-cli/shop"
+	"github.com/haokeyingxiao/haoke-cli/shop"
 	"io"
 	"net/http"
 	"net/url"
@@ -13,16 +13,16 @@ import (
 	"strings"
 	"time"
 
-	"github.com/FriendsOfShopware/shopware-cli/internal/asset"
+	"github.com/haokeyingxiao/haoke-cli/internal/asset"
 
 	"github.com/NYTimes/gziphandler"
 	"github.com/evanw/esbuild/pkg/api"
 	"github.com/spf13/cobra"
 	"github.com/vulcand/oxy/v2/forward"
 
-	"github.com/FriendsOfShopware/shopware-cli/extension"
-	"github.com/FriendsOfShopware/shopware-cli/internal/esbuild"
-	"github.com/FriendsOfShopware/shopware-cli/logging"
+	"github.com/haokeyingxiao/haoke-cli/extension"
+	"github.com/haokeyingxiao/haoke-cli/internal/esbuild"
+	"github.com/haokeyingxiao/haoke-cli/logging"
 )
 
 const schemeHostSeparator = "://"

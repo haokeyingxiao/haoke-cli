@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/FriendsOfShopware/shopware-cli/extension"
+	"github.com/haokeyingxiao/haoke-cli/extension"
 )
 
 var extensionPrepareCmd = &cobra.Command{

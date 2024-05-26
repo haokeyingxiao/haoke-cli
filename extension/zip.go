@@ -17,10 +17,10 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/FriendsOfShopware/shopware-cli/internal/changelog"
+	"github.com/haokeyingxiao/haoke-cli/internal/changelog"
 
-	"github.com/FriendsOfShopware/shopware-cli/logging"
-	"github.com/FriendsOfShopware/shopware-cli/version"
+	"github.com/haokeyingxiao/haoke-cli/logging"
+	"github.com/haokeyingxiao/haoke-cli/version"
 )
 
 var (

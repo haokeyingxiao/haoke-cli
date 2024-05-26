@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/FriendsOfShopware/shopware-cli/internal/changelog"
+	"github.com/haokeyingxiao/haoke-cli/internal/changelog"
 
 	"gopkg.in/yaml.v3"
 )
