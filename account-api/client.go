@@ -13,7 +13,7 @@ import (
 	"github.com/haokeyingxiao/haoke-cli/logging"
 )
 
-var httpUserAgent = "shopware-cli/0.0.0"
+var httpUserAgent = "haoke-cli/0.0.0"
 
 func SetUserAgent(userAgent string) {
 	httpUserAgent = userAgent
@@ -34,7 +34,7 @@ func (c *Client) NewAuthenticatedRequest(ctx context.Context, method, path strin
 
 	r.Header.Set("content-type", "application/json")
 	r.Header.Set("accept", "application/json")
-	r.Header.Set("x-shopware-token", c.Token.Token)
+	r.Header.Set("x-haoke-token", c.Token.Token)
 	r.Header.Set("user-agent", httpUserAgent)
 
 	return r, nil

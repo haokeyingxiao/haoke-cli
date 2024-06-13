@@ -94,5 +94,5 @@ var projectExtensionUpdateCmd = &cobra.Command{
 
 func init() {
 	projectExtensionCmd.AddCommand(projectExtensionUpdateCmd)
-	projectExtensionUpdateCmd.PersistentFlags().Bool("disable-store-update", false, "Downloads updates from store.shopware.com")
+	projectExtensionUpdateCmd.PersistentFlags().Bool("disable-store-update", false, "Downloads updates from store.haokeyingxiao.com")
 }

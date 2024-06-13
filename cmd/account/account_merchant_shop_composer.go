@@ -12,7 +12,7 @@ import (
 
 var accountCompanyMerchantShopComposerCmd = &cobra.Command{
 	Use:   "configure-composer [domain]",
-	Short: "Configure local composer.json to use packages.shopware.com",
+	Short: "Configure local composer.json to use packages.haokeyingxiao.com",
 	Args:  cobra.MinimumNArgs(1),
 	ValidArgsFunction: func(cmd *cobra.Command, _ []string, _ string) ([]string, cobra.ShellCompDirective) {
 		completions := make([]string, 0)
@@ -86,7 +86,7 @@ var accountCompanyMerchantShopComposerCmd = &cobra.Command{
 				Url  string `json:"url"`
 			}{
 				Type: "composer",
-				Url:  "https://packages.shopware.com",
+				Url:  "https://packages.haokeyingxiao.com",
 			}
 
 			if content, err = json.MarshalIndent(composer, "", "    "); err != nil {
@@ -113,7 +113,7 @@ var accountCompanyMerchantShopComposerCmd = &cobra.Command{
 
 			bearer, _ := authJson["bearer"].(map[string]interface{})
 
-			bearer["packages.shopware.com"] = token
+			bearer["packages.haokeyingxiao.com"] = token
 
 			if content, err = json.MarshalIndent(authJson, "", "    "); err != nil {
 				return err

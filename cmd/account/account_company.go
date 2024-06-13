@@ -6,7 +6,7 @@ import (
 
 var accountCompanyRootCmd = &cobra.Command{
 	Use:   "company",
-	Short: "Manage your Shopware company",
+	Short: "Manage your Haoke company",
 }
 
 func init() {

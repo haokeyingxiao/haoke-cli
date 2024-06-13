@@ -220,7 +220,7 @@ func prepareComposerAuth(ctx context.Context) (string, error) {
 		return "", nil
 	}
 
-	logging.FromContext(ctx).Infof("Setting up composer auth for packages.shopware.com")
+	logging.FromContext(ctx).Infof("Setting up composer auth for packages.haokeyingxiao.com")
 
 	composerAuth := os.Getenv("COMPOSER_AUTH")
 
@@ -238,7 +238,7 @@ func prepareComposerAuth(ctx context.Context) (string, error) {
 		auth.BearerAuth = make(map[string]string)
 	}
 
-	auth.BearerAuth["packages.shopware.com"] = composerToken
+	auth.BearerAuth["packages.haokeyingxiao.com"] = composerToken
 
 	data, err := json.Marshal(auth)
 	if err != nil {

@@ -7,11 +7,11 @@ weight: 10
 In this Guide we will learn how Shopware CLI can make the extension deployment easier with the Shopware Store. 
 First you need to [install](../install.md) the CLI.
 
-## Login into your Shopware Account
+## Login into your Haoke Account
 
 First we need to login into our Shopware account. For this execute the command `shopware-cli account login` and login with your credentials. This credentials will be saved locally. With `shopware-cli account logout` can you logout again. For the CI you can set enviroment variables `SHOPWARE_CLI_ACCOUNT_EMAIL` and `SHOPWARE_CLI_ACCOUNT_PASSWORD` skip the login step.
 
-## Optional: Change the active Shopware Account company
+## Optional: Change the active Haoke Account company
 
 Your Shopware account can be in multiple companies. Use the command `shopware-cli account company list` to show all companys you have access.
 With `shopware-cli account company use <id>` can you switch the current company access.
@@ -21,14 +21,14 @@ With `shopware-cli account company use <id>` can you switch the current company 
 To upload the zip later in the Store, you need to create the extension in the Shopware Store. If you haven't done this you can do this with
 
 ```
-shopware-cli account producer extension create <Name> platform
+haoke-cli account producer extension create <Name> platform
 ```
 
 possible values for the last parameter are: 
-* `classic` (Shopware 5)
-* `platform` (Shopware 6 Plugin system)
-* `themes` (Shopware 6 App containg theme)
-* `apps` (Shopware 6 App)
+* `classic` (Haoke 5)
+* `platform` (Haoke 6 Plugin system)
+* `themes` (Haoke 6 App containg theme)
+* `apps` (Haoke 6 App)
 
 ## Getting the Store Information into the Git repository
 
@@ -38,19 +38,19 @@ This command creates a `.shopware-extension.yml` config in the extension root fo
 
 ## Uploading local Store Information to the Store
 
-After making changes on the `.shopware-extension.yml`, you have to run the `shopware-cli account producer extension info push <extension-folder>` to apply the changes on the store page. 
+After making changes on the `.haoke-extension.yml`, you have to run the `shopware-cli account producer extension info push <extension-folder>` to apply the changes on the store page. 
 
 ## Creating the zip for the Store
 
-To create the zip, we can use `shopware-cli extension zip <path> --release`, this command creates a zip file from the latest Git tagged version. You can specify a specific Git commit / tag with `--git-commit 1.0.0`, or disable this behavior with `--disable-git` to take the directory as it is.
+To create the zip, we can use `haoke-cli extension zip <path> --release`, this command creates a zip file from the latest Git tagged version. You can specify a specific Git commit / tag with `--git-commit 1.0.0`, or disable this behavior with `--disable-git` to take the directory as it is.
 
 ## Validating the zip
 
-To save time, you can validate the zip with `shopware-cli extension validate <zip-path>` before uploading it to the Store. This command checks the most things of the extension store upload process.
+To save time, you can validate the zip with `haoke-cli extension validate <zip-path>` before uploading it to the Store. This command checks the most things of the extension store upload process.
 
 ## Uploading the extension zip to the Store
 
-To upload the extension zip, you have to use the command `shopware-cli account producer extension upload <zip-path>`.
+To upload the extension zip, you have to use the command `haoke-cli account producer extension upload <zip-path>`.
 If the version already exists, it updates the zip. The Shopware version compatibility list is built from the `shopware/core` requirement in the composer.json. Changelogs are built from the `CHANGELOG_de-DE.md` and `CHANGELOG_en-GB.md` file or only `CHANGELOG.md` then for both languages: 
 
 Here is an example content of an changelog file
@@ -73,7 +73,7 @@ changelog:
     enabled: true
 ```
 
-After that, when you create a new zip using `shopware-cli extension zip <path> --release`, the changelog will be generated based on the git tags. It's important to set the flag `--release`, otherwise the changelog will not be generated.
+After that, when you create a new zip using `haoke-cli extension zip <path> --release`, the changelog will be generated based on the git tags. It's important to set the flag `--release`, otherwise the changelog will not be generated.
 
 ### Configuration of the changelog generation
 
@@ -89,7 +89,7 @@ changelog:
     ticket: '^(NEXT-\d+)\s'
   # go template for the changelog, it loops over all commits
   template: |
-    {{range .Commits}}- [{{ .Message }}](https://issues.shopware.com/issues/{{ .Variables.ticket }})
+    {{range .Commits}}- [{{ .Message }}](https://issues.haokeyingxiao.com/issues/{{ .Variables.ticket }})
     {{end}}
 ```
 

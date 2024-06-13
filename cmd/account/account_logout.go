@@ -11,7 +11,7 @@ import (
 
 var logoutCmd = &cobra.Command{
 	Use:   "logout",
-	Short: "Logout from Shopware Account",
+	Short: "Logout from Haoke Account",
 	Long:  ``,
 	RunE: func(cmd *cobra.Command, _ []string) error {
 		err := accountApi.InvalidateTokenCache()

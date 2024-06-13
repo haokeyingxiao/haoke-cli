@@ -159,7 +159,7 @@ func init() {
 }
 
 func fetchAvailableShopwareVersions(ctx context.Context) ([]string, error) {
-	r, err := http.NewRequestWithContext(ctx, http.MethodGet, "https://releases.shopware.com/changelog/index.json", http.NoBody)
+	r, err := http.NewRequestWithContext(ctx, http.MethodGet, "https://releases.haokeyingxiao.com/changelog/index.json", http.NoBody)
 	if err != nil {
 		return nil, err
 	}

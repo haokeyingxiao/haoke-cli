@@ -97,7 +97,7 @@ type Producer struct {
 	HasCancelledContract bool   `json:"hasCancelledContract"`
 	IconPath             string `json:"iconPath"`
 	IconIsSet            bool   `json:"iconIsSet"`
-	ShopwareID           string `json:"shopwareId"`
+	ShopwareID           string `json:"haokeId"`
 	UserId               int    `json:"userId"`
 	CompanyId            int    `json:"companyId"`
 	CompanyName          string `json:"companyName"`
@@ -212,7 +212,7 @@ type Extension struct {
 		HasCancelledContract bool   `json:"hasCancelledContract"`
 		IconPath             string `json:"iconPath"`
 		IconIsSet            bool   `json:"iconIsSet"`
-		ShopwareID           string `json:"shopwareId"`
+		ShopwareID           string `json:"haokeId"`
 		UserId               int    `json:"userId"`
 		CompanyId            int    `json:"companyId"`
 		CompanyName          string `json:"companyName"`
