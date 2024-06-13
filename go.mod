@@ -1,4 +1,4 @@
-module github.com/haokeyingxiao/haoke-cli
+module github.com/FriendsOfShopware/shopware-cli
 
 go 1.21
 
@@ -8,16 +8,16 @@ require (
 	github.com/bep/godartsass/v2 v2.0.0
 	github.com/caarlos0/env/v9 v9.0.0
 	github.com/doutorfinancas/go-mad v0.0.0-20240205120830-463c1e9760f0
-	github.com/evanw/esbuild v0.21.3
+	github.com/evanw/esbuild v0.21.4
+	github.com/haokeyingxiao/go-haoke-admin-api-sdk v0.0.0-20240526035110-836e658ce340
 	github.com/google/uuid v1.6.0
 	github.com/gorilla/schema v1.3.0
-	github.com/haokeyingxiao/go-haoke-admin-api-sdk v0.0.0-20240526035110-836e658ce340
 	github.com/joho/godotenv v1.5.1
 	github.com/manifoldco/promptui v0.9.0
 	github.com/microcosm-cc/bluemonday v1.0.26
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/otiai10/copy v1.14.0
-	github.com/sashabaranov/go-openai v1.24.0
+	github.com/sashabaranov/go-openai v1.24.1
 	github.com/spf13/cobra v1.8.0
 	github.com/stretchr/testify v1.9.0
 	github.com/tetratelabs/wazero v1.7.2

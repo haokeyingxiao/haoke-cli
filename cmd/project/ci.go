@@ -113,6 +113,10 @@ var projectCI = &cobra.Command{
 			return err
 		}
 
+		if err := createEmptySnippetFolder(path.Join(args[0], "vendor", "shopware", "administration")); err != nil {
+			return err
+		}
+
 		if !shopCfg.Build.KeepExtensionSource {
 			for _, source := range sources {
 				if err := cleanupAdministrationFiles(cmd.Context(), source.Path); err != nil {
@@ -203,6 +207,28 @@ var projectCI = &cobra.Command{
 
 		return nil
 	},
+}
+
+func createEmptySnippetFolder(root string) error {
+	if _, err := os.Stat(path.Join(root, "Resources/app/administration/src/app/snippet")); os.IsNotExist(err) {
+		if err := os.MkdirAll(path.Join(root, "Resources/app/administration/src/app/snippet"), os.ModePerm); err != nil {
+			return err
+		}
+	}
+
+	if _, err := os.Stat(path.Join(root, "Resources/app/administration/src/module/dummy/snippet")); os.IsNotExist(err) {
+		if err := os.MkdirAll(path.Join(root, "Resources/app/administration/src/module/dummy/snippet"), os.ModePerm); err != nil {
+			return err
+		}
+	}
+
+	if _, err := os.Stat(path.Join(root, "Resources/app/administration/src/app/component/dummy/dummy/snippet")); os.IsNotExist(err) {
+		if err := os.MkdirAll(path.Join(root, "Resources/app/administration/src/app/component/dummy/dummy/snippet"), os.ModePerm); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 type ComposerAuth struct {
