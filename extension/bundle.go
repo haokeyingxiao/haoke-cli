@@ -97,10 +97,10 @@ func (p ShopwareBundle) GetShopwareVersionConstraint() (*version.Constraints, er
 		return &constraint, nil
 	}
 
-	shopwareConstraintString, ok := p.composer.Require["shopware/core"]
+	shopwareConstraintString, ok := p.composer.Require["haokeyingxiao/core"]
 
 	if !ok {
-		return nil, fmt.Errorf("require.shopware/core is required")
+		return nil, fmt.Errorf("require.haokeyingxiao/core is required")
 	}
 
 	shopwareConstraint, err := version.NewConstraint(shopwareConstraintString)

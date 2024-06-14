@@ -57,7 +57,7 @@ var extensionCreateCmd = &cobra.Command{
 		})
 
 		extensionConfig.ShopwareVersion = askExtension(promptui.Prompt{
-			Label:    "Required shopware/core version",
+			Label:    "Required haokeyingxiao/core version",
 			Validate: emptyValidator,
 			Default:  extensionConfig.ShopwareVersion,
 		})
@@ -161,7 +161,7 @@ func createComposerJson(composerFile string, extensionConfig config.ExtensionCon
 			},
 		},
 		Require: map[string]string{
-			"shopware/core": extensionConfig.ShopwareVersion,
+			"haokeyingxiao/core": extensionConfig.ShopwareVersion,
 		},
 		Extra: composerExtra{
 			ShopwarePluginClass: fmt.Sprintf("%s\\%s", extensionConfig.Namespace, extensionConfig.Name),

@@ -20,7 +20,7 @@ func TestDetectPlatformTrunk(t *testing.T) {
 	composerJson := path.Join(tmpDir, "composer.json")
 
 	jsonStruct := composerJsonStruct{
-		Name: "shopware/platform",
+		Name: "haokeyingxiao/platform",
 	}
 
 	bytes, _ := json.Marshal(jsonStruct)
@@ -63,7 +63,7 @@ func TestComposerLockMatching(t *testing.T) {
 			Version string `json:"version"`
 		}{
 			{
-				Name:    "shopware/core",
+				Name:    "haokeyingxiao/core",
 				Version: "6.4.0",
 			},
 		},
@@ -90,7 +90,7 @@ func TestComposerLockNotMatching(t *testing.T) {
 			Version string `json:"version"`
 		}{
 			{
-				Name:    "shopware/core",
+				Name:    "haokeyingxiao/core",
 				Version: "6.4.0",
 			},
 		},

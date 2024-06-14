@@ -11,7 +11,7 @@ import (
 
 var (
 	ErrNoComposerFileFound        = errors.New("could not determine Shopware version as no composer.json or composer.lock file was found")
-	ErrShopwareDependencyNotFound = errors.New("could not determine Shopware version as no shopware/core dependency was found")
+	ErrShopwareDependencyNotFound = errors.New("could not determine Shopware version as no haokeyingxiao/core dependency was found")
 )
 
 func IsShopwareVersion(projectRoot string, requiredVersion string) (bool, error) {
@@ -54,7 +54,7 @@ func determineByComposerLock(composerLock, requiredVersion string) (bool, error)
 	constraint := version.MustConstraints(version.NewConstraint(requiredVersion))
 
 	for _, pkg := range lock.Packages {
-		if pkg.Name == "shopware/core" {
+		if pkg.Name == "haokeyingxiao/core" {
 			if constraint.Check(version.Must(version.NewVersion(pkg.Version))) {
 				return true, nil
 			}
@@ -81,7 +81,7 @@ func determineByComposerJson(composerJson string) (bool, error) {
 		return false, err
 	}
 
-	if jsonStruct.Name == "shopware/platform" {
+	if jsonStruct.Name == "haokeyingxiao/platform" {
 		return true, nil
 	}
 

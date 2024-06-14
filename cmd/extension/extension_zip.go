@@ -133,7 +133,7 @@ var extensionZipCmd = &cobra.Command{
 
 			shopwareConstraint, err := tempExt.GetShopwareVersionConstraint()
 			if err != nil {
-				return fmt.Errorf("get shopware version constraint: %w", err)
+				return fmt.Errorf("get haoke version constraint: %w", err)
 			}
 
 			assetBuildConfig := extension.AssetBuildConfig{

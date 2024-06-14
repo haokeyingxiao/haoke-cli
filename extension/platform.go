@@ -120,10 +120,10 @@ func (p PlatformPlugin) GetShopwareVersionConstraint() (*version.Constraints, er
 		return &constraint, nil
 	}
 
-	shopwareConstraintString, ok := p.composer.Require["shopware/core"]
+	shopwareConstraintString, ok := p.composer.Require["haokeyingxiao/core"]
 
 	if !ok {
-		return nil, fmt.Errorf("require.shopware/core is required")
+		return nil, fmt.Errorf("require.haokeyingxiao/core is required")
 	}
 
 	shopwareConstraint, err := version.NewConstraint(shopwareConstraintString)
@@ -198,10 +198,10 @@ func (p PlatformPlugin) Validate(c context.Context, ctx *ValidationContext) {
 	if len(p.composer.Require) == 0 {
 		ctx.AddError("Key `require` is required")
 	} else {
-		_, exists := p.composer.Require["shopware/core"]
+		_, exists := p.composer.Require["haokeyingxiao/core"]
 
 		if !exists {
-			ctx.AddError("You need to require \"shopware/core\" package")
+			ctx.AddError("You need to require \"haokeyingxiao/core\" package")
 		}
 	}
 

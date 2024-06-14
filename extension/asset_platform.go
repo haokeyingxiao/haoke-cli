@@ -544,7 +544,7 @@ func setupShopwareInTemp(ctx context.Context, minVersion string) (string, error)
 
 	logging.FromContext(ctx).Infof("Cloning shopware with branch: %s into %s", branch, dir)
 
-	gitCheckoutCmd := exec.Command("git", "clone", "https://github.com/shopware/shopware.git", "--depth=1", "-b", branch, dir)
+	gitCheckoutCmd := exec.Command("git", "clone", "https://github.com/haokeyingxiao/haoke.git", "--depth=1", "-b", branch, dir)
 	gitCheckoutCmd.Stdout = os.Stdout
 	gitCheckoutCmd.Stderr = os.Stderr
 	err = gitCheckoutCmd.Run()

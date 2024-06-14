@@ -20,13 +20,13 @@ import (
 
 // cleanupPaths are paths that are not nesscarry for the production build.
 var cleanupPaths = []string{
-	"vendor/shopware/storefront/Resources/app/storefront/vendor/bootstrap/dist",
-	"vendor/shopware/storefront/Resources/app/storefront/test",
-	"vendor/shopware/storefront/Test",
-	"vendor/shopware/core/Framework/Test",
-	"vendor/shopware/core/Content/Test",
-	"vendor/shopware/core/Checkout/Test",
-	"vendor/shopware/core/System/Test",
+	"vendor/haokeyingxiao/storefront/Resources/app/storefront/vendor/bootstrap/dist",
+	"vendor/haokeyingxiao/storefront/Resources/app/storefront/test",
+	"vendor/haokeyingxiao/storefront/Test",
+	"vendor/haokeyingxiao/core/Framework/Test",
+	"vendor/haokeyingxiao/core/Content/Test",
+	"vendor/haokeyingxiao/core/Checkout/Test",
+	"vendor/haokeyingxiao/core/System/Test",
 	"vendor/tecnickcom/tcpdf/examples",
 }
 

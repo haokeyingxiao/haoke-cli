@@ -232,10 +232,10 @@ func PrepareFolderForZipping(ctx context.Context, path string, ext Extension, ex
 		return fmt.Errorf("lookup for min matching version: %w", err)
 	}
 
-	shopware65Constraint, _ := version.NewConstraint(">=6.5.0")
+	shopware65Constraint, _ := version.NewConstraint(">=6.6.0")
 
 	if shopware65Constraint.Check(version.Must(version.NewVersion(minVersion))) {
-		logging.FromContext(ctx).Info("Shopware 6.5 detected, disabling composer replacements")
+		logging.FromContext(ctx).Info("haoke 6.6 detected, disabling composer replacements")
 		return nil
 	}
 
@@ -334,7 +334,7 @@ func filterRequires(composer map[string]interface{}, extCfg *Config) map[string]
 	provide := composer["provide"]
 	require := composer["require"]
 
-	keys := []string{"shopware/platform", "shopware/core", "shopware/shopware", "shopware/storefront", "shopware/administration", "shopware/elasticsearch", "composer/installers"}
+	keys := []string{"haokeyingxiao/platform", "haokeyingxiao/core", "haokeyingxiao/haoke", "haokeyingxiao/storefront", "haokeyingxiao/administration", "haokeyingxiao/elasticsearch", "composer/installers"}
 	if extCfg != nil {
 		keys = append(keys, extCfg.Build.Zip.Composer.ExcludedPackages...)
 	}

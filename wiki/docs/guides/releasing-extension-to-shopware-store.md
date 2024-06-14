@@ -51,7 +51,7 @@ To save time, you can validate the zip with `haoke-cli extension validate <zip-p
 ## Uploading the extension zip to the Store
 
 To upload the extension zip, you have to use the command `haoke-cli account producer extension upload <zip-path>`.
-If the version already exists, it updates the zip. The Shopware version compatibility list is built from the `shopware/core` requirement in the composer.json. Changelogs are built from the `CHANGELOG_de-DE.md` and `CHANGELOG_en-GB.md` file or only `CHANGELOG.md` then for both languages: 
+If the version already exists, it updates the zip. The Shopware version compatibility list is built from the `haokeyingxiao/core` requirement in the composer.json. Changelogs are built from the `CHANGELOG_de-DE.md` and `CHANGELOG_en-GB.md` file or only `CHANGELOG.md` then for both languages: 
 
 Here is an example content of an changelog file
 

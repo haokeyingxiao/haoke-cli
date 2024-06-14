@@ -19,7 +19,7 @@ func TestGetShopwareProjectConstraintComposerJson(t *testing.T) {
 			Files: map[string]string{
 				"composer.json": `{
 		"require": {
-			"shopware/core": "~6.5.0"
+			"haokeyingxiao/core": "~6.5.0"
 	}}`,
 			},
 			Constraint: "~6.5.0",
@@ -29,12 +29,12 @@ func TestGetShopwareProjectConstraintComposerJson(t *testing.T) {
 			Files: map[string]string{
 				"composer.json": `{
 		"require": {
-			"shopware/core": "6.5.*"
+			"haokeyingxiao/core": "6.5.*"
 	}}`,
 				"composer.lock": `{
 		"packages": [
 {
-"name": "shopware/core",
+"name": "haokeyingxiao/core",
 "version": "6.5.0"
 }
 ]}`,
@@ -46,12 +46,12 @@ func TestGetShopwareProjectConstraintComposerJson(t *testing.T) {
 			Files: map[string]string{
 				"composer.json": `{
 		"require": {
-			"shopware/core": "6.5.*"
+			"haokeyingxiao/core": "6.5.*"
 	}}`,
 				"composer.lock": `{
 		"packages": [
 {
-"name": "shopware/core",
+"name": "haokeyingxiao/core",
 "version": "dev-trunk"
 }
 ]}`,
@@ -94,7 +94,7 @@ final public const SHOPWARE_FALLBACK_VERSION = '6.6.9999999.9999999-dev';
 			Files: map[string]string{
 				"composer.json": `{}`,
 			},
-			Error: "missing shopware/core requirement in composer.json",
+			Error: "missing haokeyingxiao/core requirement in composer.json",
 		},
 
 		{
@@ -102,7 +102,7 @@ final public const SHOPWARE_FALLBACK_VERSION = '6.6.9999999.9999999-dev';
 			Files: map[string]string{
 				"composer.json": `{
 		"require": {
-			"shopware/core": "6.5.*"
+			"haokeyingxiao/core": "6.5.*"
 	}}`,
 			},
 			Error: "malformed constraint: 6.5.*",
@@ -113,7 +113,7 @@ final public const SHOPWARE_FALLBACK_VERSION = '6.6.9999999.9999999-dev';
 			Files: map[string]string{
 				"composer.json": `{
 		"require": {
-			"shopware/core": "6.5.*"
+			"haokeyingxiao/core": "6.5.*"
 	}}`,
 				"composer.lock": `broken`,
 			},
@@ -121,11 +121,11 @@ final public const SHOPWARE_FALLBACK_VERSION = '6.6.9999999.9999999-dev';
 		},
 
 		{
-			Name: "composer.json malformed version, lock does not contain shopware/core",
+			Name: "composer.json malformed version, lock does not contain haokeyingxiao/core",
 			Files: map[string]string{
 				"composer.json": `{
 		"require": {
-			"shopware/core": "6.5.*"
+			"haokeyingxiao/core": "6.5.*"
 	}}`,
 				"composer.lock": `{"packages": []}`,
 			},

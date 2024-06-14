@@ -191,15 +191,15 @@ func fetchAvailableShopwareVersions(ctx context.Context) ([]string, error) {
 
 func generateComposerJson(version string, rc bool) (string, error) {
 	tplContent, err := template.New("composer.json").Parse(`{
-    "name": "shopware/production",
+    "name": "haokeyingxiao/production",
     "license": "MIT",
     "type": "project",
     "require": {
         "composer-runtime-api": "^2.0",
-        "shopware/administration": "*",
-        "shopware/core": "{{ .Version }}",
-        "shopware/elasticsearch": "*",
-        "shopware/storefront": "*",
+        "haokeyingxiao/administration": "*",
+        "haokeyingxiao/core": "{{ .Version }}",
+        "haokeyingxiao/elasticsearch": "*",
+        "haokeyingxiao/storefront": "*",
         "symfony/flex": "~2"
     },
     "repositories": [

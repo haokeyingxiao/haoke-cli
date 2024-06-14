@@ -37,13 +37,13 @@ var extensionAssetBundleCmd = &cobra.Command{
 		if assetCfg.ShopwareRoot != "" {
 			constraint, err := extension.GetShopwareProjectConstraint(assetCfg.ShopwareRoot)
 			if err != nil {
-				return fmt.Errorf("cannot get shopware version constraint from project %s: %w", assetCfg.ShopwareRoot, err)
+				return fmt.Errorf("cannot get haoke version constraint from project %s: %w", assetCfg.ShopwareRoot, err)
 			}
 			assetCfg.ShopwareVersion = constraint
 		} else {
 			constraint, err := validatedExtensions[0].GetShopwareVersionConstraint()
 			if err != nil {
-				return fmt.Errorf("cannot get shopware version constraint: %w", err)
+				return fmt.Errorf("cannot get haoke version constraint: %w", err)
 			}
 
 			assetCfg.ShopwareVersion = constraint
