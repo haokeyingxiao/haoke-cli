@@ -41,5 +41,5 @@ archives:
 
 release:
   github:
-    owner: haoke
+    owner: haokeyingxiao
     name: haoke-cli
