@@ -19,9 +19,15 @@ builds:
       - windows
       - darwin
     goarch:
+      - 386
       - amd64
       - arm
       - arm64
+      - mips
+      - mipsle
+      - mips64
+      - mips64le
+      - riscv64
     ignore:
       - goos: windows
         goarch: arm
@@ -31,7 +37,6 @@ builds:
 archives:
   - name_template: >-
       {{ .ProjectName }}_
-      {{- .Version }}_
       {{- if eq .Os "darwin" }}macos_
       {{- else }}{{ .Os }}_{{ end }}
       {{- if eq .Arch "amd64" }}x86_64
