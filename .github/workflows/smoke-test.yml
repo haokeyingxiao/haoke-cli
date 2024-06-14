@@ -31,7 +31,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: 'haokeyingxiao-hub/FroshTools'
-          ref: '794afd5f89e48200834d2edf60a1f28d1f9a7fc3'
+          ref: '327f3dfc3008628d7fbf33b86a61ca94c350d3c4'
           path: 'plugin'
 
       - name: Create HaoKe
