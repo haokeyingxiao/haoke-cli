@@ -1,3 +1,5 @@
+project_name: haoke-cli
+
 before:
   hooks:
     - go mod tidy
@@ -17,20 +19,26 @@ builds:
       - linux
       - windows
       - darwin
+    goarch:
+      - amd64
+      - arm
+      - arm64
     ignore:
-      - goos: linux
-        goarch: '386'
       - goos: windows
-        goarch: '386'
+        goarch: arm
       - goos: windows
-        goarch: 'arm64'
+        goarch: arm64
 
 archives:
   - name_template: >-
       {{ .ProjectName }}_
-      {{- title .Os }}_
+      {{- .Version }}_
+      {{- if eq .Os "darwin" }}macos_
+      {{- else }}{{ .Os }}_{{ end }}
       {{- if eq .Arch "amd64" }}x86_64
       {{- else if eq .Arch "386" }}i386
+      {{- else if eq .Arch "arm64" }}aarch64
+      {{- else if eq .Arch "arm" }}armv{{ .Arm }}
       {{- else }}{{ .Arch }}{{ end }}
     format_overrides:
       - goos: windows
