@@ -1,7 +1,14 @@
 name: goreleaser
 
+permissions:
+  contents: write
+  id-token: write
+  packages: write
+
 on:
-  workflow_dispatch:
+  push:
+    tags: [ 'v*' ]
+
 
 jobs:
   goreleaser:
