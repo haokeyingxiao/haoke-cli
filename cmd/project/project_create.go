@@ -139,7 +139,7 @@ func getFilteredInstallVersions(ctx context.Context) ([]*version.Version, error)
 	}
 
 	filteredVersions := make([]*version.Version, 0)
-	constraint, _ := version.NewConstraint(">=6.4.18.0")
+	constraint, _ := version.NewConstraint(">=6.6.4.0")
 
 	for _, release := range releases {
 		parsed := version.Must(version.NewVersion(release))
@@ -192,7 +192,7 @@ func fetchAvailableShopwareVersions(ctx context.Context) ([]string, error) {
 func generateComposerJson(version string, rc bool) (string, error) {
 	tplContent, err := template.New("composer.json").Parse(`{
     "name": "haokeyingxiao/production",
-    "license": "MIT",
+    "license": "Apache-2.0",
     "type": "project",
     "require": {
         "composer-runtime-api": "^2.0",
@@ -251,7 +251,7 @@ func generateComposerJson(version string, rc bool) (string, error) {
         "symfony": {
             "allow-contrib": true,
             "endpoint": [
-                "https://raw.githubusercontent.com/shopware/recipes/flex/main/index.json",
+                "https://raw.githubusercontent.com/haokeyingxiao/recipes/flex/main/index.json",
                 "flex://defaults"
             ]
         }

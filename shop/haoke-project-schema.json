@@ -1,17 +1,17 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "title": "shopware-cli",
+    "title": "haoke-cli",
     "description": "shopware cli project configuration definition file",
     "$ref": "#/definitions/Config",
     "definitions": {
         "Config": {
             "type": "object",
-            "title": ".shopware-project.yml",
+            "title": ".haoke-project.yml",
             "additionalProperties": false,
             "properties": {
                 "url": {
                     "type": "string",
-                    "description": "URL to Shopware instance"
+                    "description": "URL to Haoke instance"
                 },
                 "admin_api": {
                     "$ref": "#/definitions/AdminApi"
