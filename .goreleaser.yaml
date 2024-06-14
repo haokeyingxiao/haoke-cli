@@ -8,7 +8,9 @@ builds:
   - env:
       - CGO_ENABLED=0
     binary: haoke-cli
-    ldflags: -s -w -X 'github.com/haokeyingxiao/haoke-cli/cmd.version={{ .Version }}'
+    ldflags:
+      - -s -w -X main.build={{.Version}}
+      - ./usemsan=-msan
     flags:
       - -trimpath
     goos:
