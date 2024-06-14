@@ -25,8 +25,8 @@ jobs:
       - name: Checkout Plugin
         uses: actions/checkout@v4
         with:
-          repository: 'FriendsOfShopware/FroshTools'
-          ref: '75e2013752fd4db7535e4b72b3e3e8d57e531002'
+          repository: 'haokeyingxiao-hub/FroshTools'
+          ref: '794afd5f89e48200834d2edf60a1f28d1f9a7fc3'
           path: 'plugin'
 
       - name: Create HaoKe
@@ -48,9 +48,9 @@ jobs:
         env:
           HAOKE_PROJECT_ROOT: ${{ github.workspace }}/haoke
         run: |
-          mv plugin/.shopware-extension.yml plugin/.shopware-extension-disable.yml
+          mv plugin/.haoke-extension.yml plugin/.haoke-extension-disable.yml
           ./haoke-cli extension build plugin
-          mv plugin/.shopware-extension-disable.yml plugin/.shopware-extension.yml
+          mv plugin/.haoke-extension-disable.yml plugin/.haoke-extension.yml
 
       - name: Install a Storefront Plugin
         working-directory: haoke

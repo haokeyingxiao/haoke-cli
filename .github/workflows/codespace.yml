@@ -28,5 +28,5 @@ jobs:
                 context: .devcontainer
                 push: true
                 platforms: linux/amd64,linux/arm64
-                tags: "ghcr.io/friendsofshopware/shopware-cli-codespace"
+                tags: "ghcr.io/haokeyingxiao/haoke-cli-codespace"
                 provenance: false
