@@ -11,8 +11,7 @@ builds:
       - CGO_ENABLED=0
     binary: haoke-cli
     ldflags:
-      - -s -w -X main.build={{.Version}}
-      - ./usemsan=-msan
+      - -s -w
     flags:
       - -trimpath
     goos:
