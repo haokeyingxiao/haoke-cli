@@ -1,8 +1,8 @@
 ARG PHP_VERSION
 
-FROM ghcr.io/friendsofshopware/shopware-cli-base:${PHP_VERSION}
+FROM ghcr.io/haokeyingxiao/haoke-cli-base:${PHP_VERSION}
 
-COPY shopware-cli /usr/local/bin/
+COPY haoke-cli /usr/local/bin/
 
-ENTRYPOINT ["/usr/local/bin/shopware-cli"]
+ENTRYPOINT ["/usr/local/bin/haoke-cli"]
 CMD ["--help"]

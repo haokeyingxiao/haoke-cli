@@ -2,7 +2,6 @@ package account
 
 import (
 	"os"
-	"strconv"
 	"strings"
 
 	"github.com/olekukonko/tablewriter"
@@ -20,7 +19,7 @@ var accountCompanyListCmd = &cobra.Command{
 
 		for _, membership := range services.AccountClient.GetMemberships() {
 			table.Append([]string{
-				strconv.FormatInt(int64(membership.Company.Id), 10),
+				membership.Company.Id,
 				membership.Company.Name,
 				membership.Company.CustomerNumber,
 				strings.Join(membership.GetRoles(), ", "),

@@ -96,7 +96,7 @@ func NewApi(ctx context.Context, config AccountConfig) (*Client, error) {
 }
 
 func fetchMemberships(ctx context.Context, token token) ([]Membership, error) {
-	r, err := http.NewRequestWithContext(ctx, "GET", fmt.Sprintf("%s/account/%d/memberships", ApiUrl, token.UserAccountID), http.NoBody)
+	r, err := http.NewRequestWithContext(ctx, "GET", fmt.Sprintf("%s/account/%s/memberships", ApiUrl, token.UserAccountID), http.NoBody)
 	r.Header.Set("x-haoke-token", token.Token)
 
 	if err != nil {
@@ -108,7 +108,12 @@ func fetchMemberships(ctx context.Context, token token) ([]Membership, error) {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+
+		}
+	}(resp.Body)
 
 	data, err := io.ReadAll(resp.Body)
 	if err != nil {
@@ -130,8 +135,8 @@ func fetchMemberships(ctx context.Context, token token) ([]Membership, error) {
 type token struct {
 	Token         string      `json:"token"`
 	Expire        tokenExpire `json:"expire"`
-	UserAccountID int         `json:"userAccountId"`
-	UserID        int         `json:"userId"`
+	UserAccountID string      `json:"userAccountId"`
+	UserID        string      `json:"userId"`
 	LegacyLogin   bool        `json:"legacyLogin"`
 }
 
@@ -155,41 +160,41 @@ func (l LoginRequest) GetAccountPassword() string {
 }
 
 type Membership struct {
-	Id           int    `json:"id"`
+	Id           string `json:"id"`
 	CreationDate string `json:"creationDate"`
 	Active       bool   `json:"active"`
 	Member       struct {
-		Id           int         `json:"id"`
+		Id           string      `json:"id"`
 		Email        string      `json:"email"`
 		AvatarUrl    interface{} `json:"avatarUrl"`
 		PersonalData struct {
-			Id         int `json:"id"`
+			Id         string `json:"id"`
 			Salutation struct {
-				Id          int    `json:"id"`
+				Id          string `json:"id"`
 				Name        string `json:"name"`
 				Description string `json:"description"`
 			} `json:"salutation"`
 			FirstName string `json:"firstName"`
 			LastName  string `json:"lastName"`
 			Locale    struct {
-				Id          int    `json:"id"`
+				Id          string `json:"id"`
 				Name        string `json:"name"`
 				Description string `json:"description"`
 			} `json:"locale"`
 		} `json:"personalData"`
 	} `json:"member"`
 	Company struct {
-		Id             int    `json:"id"`
+		Id             string `json:"id"`
 		Name           string `json:"name"`
 		CustomerNumber string `json:"customerNumber"`
 	} `json:"company"`
 	Roles []struct {
-		Id           int         `json:"id"`
+		Id           string      `json:"id"`
 		Name         string      `json:"name"`
 		CreationDate string      `json:"creationDate"`
 		Company      interface{} `json:"company"`
 		Permissions  []struct {
-			Id      int    `json:"id"`
+			Id      string `json:"id"`
 			Context string `json:"context"`
 			Name    string `json:"name"`
 		} `json:"permissions"`
@@ -208,19 +213,19 @@ func (m Membership) GetRoles() []string {
 
 type changeMembershipRequest struct {
 	SelectedMembership struct {
-		Id int `json:"id"`
+		Id string `json:"id"`
 	} `json:"membership"`
 }
 
 func (c *Client) ChangeActiveMembership(ctx context.Context, selected Membership) error {
 	s, err := json.Marshal(changeMembershipRequest{SelectedMembership: struct {
-		Id int `json:"id"`
-	}(struct{ Id int }{Id: selected.Id})})
+		Id string `json:"id"`
+	}(struct{ Id string }{Id: selected.Id})})
 	if err != nil {
 		return fmt.Errorf("ChangeActiveMembership: %v", err)
 	}
 
-	r, err := c.NewAuthenticatedRequest(ctx, "POST", fmt.Sprintf("%s/account/%d/memberships/change", ApiUrl, c.GetUserID()), bytes.NewBuffer(s))
+	r, err := c.NewAuthenticatedRequest(ctx, "POST", fmt.Sprintf("%s/account/%s/memberships/change", ApiUrl, c.GetUserID()), bytes.NewBuffer(s))
 	if err != nil {
 		return err
 	}

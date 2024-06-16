@@ -2,12 +2,9 @@ package account
 
 import (
 	"fmt"
-	"strconv"
-
-	"github.com/spf13/cobra"
-
 	accountApi "github.com/haokeyingxiao/haoke-cli/account-api"
 	"github.com/haokeyingxiao/haoke-cli/logging"
+	"github.com/spf13/cobra"
 )
 
 var accountCompanyUseCmd = &cobra.Command{
@@ -16,10 +13,7 @@ var accountCompanyUseCmd = &cobra.Command{
 	Args:  cobra.MinimumNArgs(1),
 	Long:  ``,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		companyID, err := strconv.Atoi(args[0])
-		if err != nil {
-			return err
-		}
+		companyID := args[0]
 
 		for _, membership := range services.AccountClient.GetMemberships() {
 			if membership.Company.Id == companyID {
@@ -31,7 +25,7 @@ var accountCompanyUseCmd = &cobra.Command{
 					return err
 				}
 
-				err = accountApi.InvalidateTokenCache()
+				err := accountApi.InvalidateTokenCache()
 				if err != nil {
 					return fmt.Errorf("cannot invalidate token cache: %w", err)
 				}
@@ -41,7 +35,7 @@ var accountCompanyUseCmd = &cobra.Command{
 			}
 		}
 
-		return fmt.Errorf("company with ID \"%d\" not found", companyID)
+		return fmt.Errorf("company with ID \"%s\" not found", companyID)
 	},
 }
 

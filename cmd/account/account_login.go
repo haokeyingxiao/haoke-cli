@@ -44,7 +44,7 @@ var loginCmd = &cobra.Command{
 			return fmt.Errorf("login failed with error: %w", err)
 		}
 
-		if companyId := services.Conf.GetAccountCompanyId(); companyId > 0 {
+		if companyId := services.Conf.GetAccountCompanyId(); companyId != "" {
 			err = changeAPIMembership(cmd.Context(), client, companyId)
 
 			if err != nil {
@@ -112,18 +112,18 @@ func emptyValidator(s string) error {
 	return nil
 }
 
-func changeAPIMembership(ctx context.Context, client *accountApi.Client, companyID int) error {
-	if companyID == 0 || client.GetActiveCompanyID() == companyID {
+func changeAPIMembership(ctx context.Context, client *accountApi.Client, companyID string) error {
+	if companyID == "" || client.GetActiveCompanyID() == companyID {
 		logging.FromContext(ctx).Debugf("Client is on correct membership skip")
 		return nil
 	}
 
 	for _, membership := range client.GetMemberships() {
 		if membership.Company.Id == companyID {
-			logging.FromContext(ctx).Debugf("Changing member ship from %s (%d) to %s (%d)", client.ActiveMembership.Company.Name, client.ActiveMembership.Company.Id, membership.Company.Name, membership.Company.Id)
+			logging.FromContext(ctx).Debugf("Changing member ship from %s (%s) to %s (%s)", client.ActiveMembership.Company.Name, client.ActiveMembership.Company.Id, membership.Company.Name, membership.Company.Id)
 			return client.ChangeActiveMembership(ctx, membership)
 		}
 	}
 
-	return fmt.Errorf("could not find configured company with id %d", companyID)
+	return fmt.Errorf("could not find configured company with id %s", companyID)
 }

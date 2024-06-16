@@ -83,6 +83,7 @@ var accountCompanyProducerExtensionUploadCmd = &cobra.Command{
 				Changelogs: []account_api.ExtensionUpdateChangelog{
 					{Locale: "de_DE", Text: changelog.German},
 					{Locale: "en_GB", Text: changelog.English},
+					{Locale: "zh_CN", Text: changelog.Chinese},
 				},
 			}
 
@@ -102,6 +103,7 @@ var accountCompanyProducerExtensionUploadCmd = &cobra.Command{
 			Changelogs: []account_api.ExtensionUpdateChangelog{
 				{Locale: "de_DE", Text: changelog.German},
 				{Locale: "en_GB", Text: changelog.English},
+				{Locale: "zh_CN", Text: changelog.Chinese},
 			},
 		}
 

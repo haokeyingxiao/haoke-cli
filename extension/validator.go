@@ -114,6 +114,10 @@ func runDefaultValidate(context *ValidationContext) {
 		context.AddError("label is not translated in english")
 	}
 
+	if len(metaData.Label.Chinese) == 0 {
+		context.AddError("label is not translated in chinese")
+	}
+
 	if len(metaData.Description.German) == 0 {
 		context.AddError("description is not translated in german")
 	}
@@ -121,12 +125,17 @@ func runDefaultValidate(context *ValidationContext) {
 	if len(metaData.Description.English) == 0 {
 		context.AddError("description is not translated in english")
 	}
-
-	if len(metaData.Description.German) < 150 || len(metaData.Description.German) > 185 {
+	if len(metaData.Description.Chinese) == 0 {
+		context.AddError("description is not translated in chinese")
+	}
+	if len(metaData.Description.German) < 50 || len(metaData.Description.German) > 185 {
 		context.AddError(fmt.Sprintf("the %s description with length of %d should have a length from 150 up to 185 characters.", "german", len(metaData.Description.German)))
 	}
 
-	if len(metaData.Description.English) < 150 || len(metaData.Description.English) > 185 {
+	if len(metaData.Description.English) < 50 || len(metaData.Description.English) > 185 {
 		context.AddError(fmt.Sprintf("the %s description with length of %d should have a length from 150 up to 185 characters.", "english", len(metaData.Description.English)))
+	}
+	if len(metaData.Description.English) < 50 || len(metaData.Description.English) > 185 {
+		context.AddError(fmt.Sprintf("the %s description with length of %d should have a length from 150 up to 185 characters.", "chinese", len(metaData.Description.Chinese)))
 	}
 }

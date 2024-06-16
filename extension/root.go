@@ -79,6 +79,7 @@ func GetExtensionByZip(filePath string) (Extension, error) {
 type extensionTranslated struct {
 	German  string `json:"german"`
 	English string `json:"english"`
+	Chinese string `json:"chinese"`
 }
 
 type extensionMetadata struct {

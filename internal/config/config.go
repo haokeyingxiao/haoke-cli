@@ -5,7 +5,6 @@ import (
 	"github.com/caarlos0/env/v9"
 	"gopkg.in/yaml.v3"
 	"os"
-	"strconv"
 	"sync"
 )
 
@@ -27,7 +26,7 @@ type configData struct {
 	Account struct {
 		Email    string `env:"SHOPWARE_CLI_ACCOUNT_EMAIL" yaml:"email"`
 		Password string `env:"SHOPWARE_CLI_ACCOUNT_PASSWORD" yaml:"password"`
-		Company  int    `env:"SHOPWARE_CLI_ACCOUNT_COMPANY" yaml:"company"`
+		Company  string `env:"SHOPWARE_CLI_ACCOUNT_COMPANY" yaml:"company"`
 	} `yaml:"account"`
 }
 
@@ -57,7 +56,7 @@ func defaultConfig() *configData {
 	config := &configData{}
 	config.Account.Email = ""
 	config.Account.Password = ""
-	config.Account.Company = 0
+	config.Account.Company = ""
 	return config
 }
 
@@ -158,7 +157,7 @@ func (Config) GetAccountPassword() string {
 	return state.inner.Account.Password
 }
 
-func (Config) GetAccountCompanyId() int {
+func (Config) GetAccountCompanyId() string {
 	state.mu.RLock()
 	defer state.mu.RUnlock()
 	return state.inner.Account.Company
@@ -186,11 +185,11 @@ func (Config) SetAccountPassword(password string) error {
 	return nil
 }
 
-func (Config) SetAccountCompanyId(id int) error {
+func (Config) SetAccountCompanyId(id string) error {
 	state.mu.Lock()
 	defer state.mu.Unlock()
 	if state.loadedFromEnv {
-		return fmt.Errorf(environmentConfigErrorFormat, "account.company", strconv.Itoa(id))
+		return fmt.Errorf(environmentConfigErrorFormat, "account.company", id)
 	}
 	state.modified = true
 	state.inner.Account.Company = id

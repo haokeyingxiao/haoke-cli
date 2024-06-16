@@ -160,10 +160,12 @@ func (p PlatformPlugin) GetMetaData() *extensionMetadata {
 		Label: extensionTranslated{
 			German:  p.composer.Extra.Label["de-DE"],
 			English: p.composer.Extra.Label["en-GB"],
+			Chinese: p.composer.Extra.Label["zh-CN"],
 		},
 		Description: extensionTranslated{
 			German:  p.composer.Extra.Description["de-DE"],
 			English: p.composer.Extra.Description["en-GB"],
+			Chinese: p.composer.Extra.Description["zh-CN"],
 		},
 	}
 }
@@ -205,7 +207,7 @@ func (p PlatformPlugin) Validate(c context.Context, ctx *ValidationContext) {
 		}
 	}
 
-	requiredKeys := []string{"de-DE", "en-GB"}
+	requiredKeys := []string{"de-DE", "en-GB", "zh-CN"}
 
 	for _, key := range requiredKeys {
 		_, hasLabel := p.composer.Extra.Label[key]
@@ -252,7 +254,7 @@ func (p PlatformPlugin) Validate(c context.Context, ctx *ValidationContext) {
 func validatePHPFiles(c context.Context, ctx *ValidationContext) {
 	constraint, err := ctx.Extension.GetShopwareVersionConstraint()
 	if err != nil {
-		ctx.AddError(fmt.Sprintf("Could not parse shopware version constraint: %s", err.Error()))
+		ctx.AddError(fmt.Sprintf("Could not parse haoke version constraint: %s", err.Error()))
 		return
 	}
 

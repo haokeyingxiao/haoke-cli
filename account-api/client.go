@@ -64,11 +64,11 @@ func (*Client) doRequest(request *http.Request) ([]byte, error) {
 	return data, nil
 }
 
-func (c *Client) GetActiveCompanyID() int {
+func (c *Client) GetActiveCompanyID() string {
 	return c.Token.UserID
 }
 
-func (c *Client) GetUserID() int {
+func (c *Client) GetUserID() string {
 	return c.Token.UserAccountID
 }
 
