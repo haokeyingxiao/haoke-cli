@@ -2,8 +2,6 @@ package account
 
 import (
 	"fmt"
-	"strconv"
-
 	"github.com/spf13/cobra"
 
 	"github.com/haokeyingxiao/haoke-cli/logging"
@@ -14,11 +12,7 @@ var accountCompanyProducerExtensionDeleteCmd = &cobra.Command{
 	Short: "Delete a extension",
 	Args:  cobra.MinimumNArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		extensionId, err := strconv.Atoi(args[0])
-		if err != nil {
-			return fmt.Errorf("cannot convert id to int: %w", err)
-		}
-
+		extensionId := args[0]
 		p, err := services.AccountClient.Producer(cmd.Context())
 		if err != nil {
 			return fmt.Errorf("cannot get producer endpoint: %w", err)

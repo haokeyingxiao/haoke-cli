@@ -108,7 +108,17 @@ func parseExtensionMarkdownChangelog(ext Extension) (*extensionTranslated, error
 		return nil, fmt.Errorf("german changelog in version %s is missing", v.String())
 	}
 
-	return &extensionTranslated{German: changelogDeVersion, English: changelogEnVersion}, nil
+	changelogZh, ok := changelogs["zh-CN"]
+	if !ok {
+		changelogZh = changelogEn
+	}
+
+	changelogZhVersion, ok := changelogZh[v.String()]
+	if !ok {
+		return nil, fmt.Errorf("chinese changelog in version %s is missing", v.String())
+	}
+
+	return &extensionTranslated{German: changelogDeVersion, English: changelogEnVersion, Chinese: changelogZhVersion}, nil
 }
 
 func GetConfiguredGoldMark() goldmark.Markdown {

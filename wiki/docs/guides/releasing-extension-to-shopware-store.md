@@ -9,7 +9,7 @@ First you need to [install](../install.md) the CLI.
 
 ## Login into your Haoke Account
 
-First we need to login into our Shopware account. For this execute the command `shopware-cli account login` and login with your credentials. This credentials will be saved locally. With `shopware-cli account logout` can you logout again. For the CI you can set enviroment variables `SHOPWARE_CLI_ACCOUNT_EMAIL` and `SHOPWARE_CLI_ACCOUNT_PASSWORD` skip the login step.
+First we need to login into our Shopware account. For this execute the command `shopware-cli account login` and login with your credentials. This credentials will be saved locally. With `shopware-cli account logout` can you logout again. For the CI you can set enviroment variables `HAOKE_CLI_ACCOUNT_EMAIL` and `HAOKE_CLI_ACCOUNT_PASSWORD` skip the login step.
 
 ## Optional: Change the active Haoke Account company
 

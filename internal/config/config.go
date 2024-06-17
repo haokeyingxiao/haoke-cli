@@ -24,9 +24,8 @@ type configState struct {
 
 type configData struct {
 	Account struct {
-		Email    string `env:"SHOPWARE_CLI_ACCOUNT_EMAIL" yaml:"email"`
-		Password string `env:"SHOPWARE_CLI_ACCOUNT_PASSWORD" yaml:"password"`
-		Company  string `env:"SHOPWARE_CLI_ACCOUNT_COMPANY" yaml:"company"`
+		Email    string `env:"HAOKE_CLI_ACCOUNT_EMAIL" yaml:"email"`
+		Password string `env:"HAOKE_CLI_ACCOUNT_PASSWORD" yaml:"password"`
 	} `yaml:"account"`
 }
 
@@ -56,7 +55,6 @@ func defaultConfig() *configData {
 	config := &configData{}
 	config.Account.Email = ""
 	config.Account.Password = ""
-	config.Account.Company = ""
 	return config
 }
 
@@ -157,12 +155,6 @@ func (Config) GetAccountPassword() string {
 	return state.inner.Account.Password
 }
 
-func (Config) GetAccountCompanyId() string {
-	state.mu.RLock()
-	defer state.mu.RUnlock()
-	return state.inner.Account.Company
-}
-
 func (Config) SetAccountEmail(email string) error {
 	state.mu.Lock()
 	defer state.mu.Unlock()
@@ -182,17 +174,6 @@ func (Config) SetAccountPassword(password string) error {
 	}
 	state.modified = true
 	state.inner.Account.Password = password
-	return nil
-}
-
-func (Config) SetAccountCompanyId(id string) error {
-	state.mu.Lock()
-	defer state.mu.Unlock()
-	if state.loadedFromEnv {
-		return fmt.Errorf(environmentConfigErrorFormat, "account.company", id)
-	}
-	state.modified = true
-	state.inner.Account.Company = id
 	return nil
 }
 

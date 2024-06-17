@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strconv"
 	"strings"
 
 	"github.com/gorilla/schema"
@@ -14,15 +13,14 @@ import (
 
 type ProducerEndpoint struct {
 	c          *Client
-	producerId int
+	producerId string
 }
 
-func (e ProducerEndpoint) GetId() int {
+func (e ProducerEndpoint) GetId() string {
 	return e.producerId
 }
-
 func (c *Client) Producer(ctx context.Context) (*ProducerEndpoint, error) {
-	r, err := c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/companies/%d/allocations", ApiUrl, c.GetActiveCompanyID()), nil)
+	r, err := c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/producers/%s", ApiUrl, c.GetUserID()), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -38,23 +36,19 @@ func (c *Client) Producer(ctx context.Context) (*ProducerEndpoint, error) {
 	}
 
 	if !allocation.IsProducer {
-		return nil, fmt.Errorf("this company is not unlocked as producer")
+		return nil, fmt.Errorf("this user is not unlocked as producer")
 	}
 
 	return &ProducerEndpoint{producerId: allocation.ProducerID, c: c}, nil
 }
 
 type companyAllocation struct {
-	HasShops          bool `json:"hasShops"`
-	HasCommercialShop bool `json:"hasCommercialShop"`
-	IsEducationMember bool `json:"isEducationMember"`
-	IsPartner         bool `json:"isPartner"`
-	IsProducer        bool `json:"isProducer"`
-	ProducerID        int  `json:"producerId"`
+	IsProducer bool   `json:"isProducer"`
+	ProducerID string `json:"producerId"`
 }
 
 func (e ProducerEndpoint) Profile(ctx context.Context) (*Producer, error) {
-	r, err := e.c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/producers?companyId=%d", ApiUrl, e.c.GetActiveCompanyID()), nil)
+	r, err := e.c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/producers?producersId=%s", ApiUrl, e.GetId()), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -77,40 +71,10 @@ func (e ProducerEndpoint) Profile(ctx context.Context) (*Producer, error) {
 }
 
 type Producer struct {
-	Id       int    `json:"id"`
-	Prefix   string `json:"prefix"`
-	Contract struct {
-		Id   int    `json:"id"`
-		Path string `json:"path"`
-	} `json:"contract"`
+	Id      string `json:"id"`
+	Prefix  string `json:"prefix"`
 	Name    string `json:"name"`
-	Details []struct {
-		Id     int `json:"id"`
-		Locale struct {
-			Id   int    `json:"id"`
-			Name string `json:"name"`
-		} `json:"locale"`
-		Description string `json:"description"`
-	} `json:"details"`
-	Website              string `json:"website"`
-	Fixed                bool   `json:"fixed"`
-	HasCancelledContract bool   `json:"hasCancelledContract"`
-	IconPath             string `json:"iconPath"`
-	IconIsSet            bool   `json:"iconIsSet"`
-	ShopwareID           string `json:"haokeId"`
-	UserId               int    `json:"userId"`
-	CompanyId            int    `json:"companyId"`
-	CompanyName          string `json:"companyName"`
-	SaleMail             string `json:"saleMail"`
-	SupportMail          string `json:"supportMail"`
-	RatingMail           string `json:"ratingMail"`
-	SupportedLanguages   []struct {
-		Id          int    `json:"id"`
-		Name        string `json:"name"`
-		Description string `json:"description"`
-	} `json:"supportedLanguages"`
-	IconURL           string      `json:"iconUrl"`
-	CancelledContract interface{} `json:"cancelledContract"`
+	HaokeID string `json:"haokeId"`
 }
 
 type ListExtensionCriteria struct {
@@ -124,7 +88,7 @@ type ListExtensionCriteria struct {
 func (e ProducerEndpoint) Extensions(ctx context.Context, criteria *ListExtensionCriteria) ([]Extension, error) {
 	encoder := schema.NewEncoder()
 	form := url.Values{}
-	form.Set("producerId", strconv.FormatInt(int64(e.GetId()), 10))
+	form.Set("producerId", e.GetId())
 	err := encoder.Encode(criteria, form)
 	if err != nil {
 		return nil, fmt.Errorf("list_extensions: %v", err)
@@ -167,11 +131,11 @@ func (e ProducerEndpoint) GetExtensionByName(ctx context.Context, name string) (
 	return nil, fmt.Errorf("cannot find Extension by name %s", name)
 }
 
-func (e ProducerEndpoint) GetExtensionById(ctx context.Context, id int) (*Extension, error) {
+func (e ProducerEndpoint) GetExtensionById(ctx context.Context, id string) (*Extension, error) {
 	errorFormat := "GetExtensionById: %v"
 
 	// Create it
-	r, err := e.c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/plugins/%d", ApiUrl, id), nil)
+	r, err := e.c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/plugins/%s", ApiUrl, id), nil)
 	if err != nil {
 		return nil, fmt.Errorf(errorFormat, err)
 	}
@@ -190,77 +154,12 @@ func (e ProducerEndpoint) GetExtensionById(ctx context.Context, id int) (*Extens
 }
 
 type Extension struct {
-	Id       int `json:"id"`
-	Producer struct {
-		Id       int    `json:"id"`
-		Prefix   string `json:"prefix"`
-		Contract struct {
-			Id   int    `json:"id"`
-			Path string `json:"path"`
-		} `json:"contract"`
-		Name    string `json:"name"`
-		Details []struct {
-			Id     int `json:"id"`
-			Locale struct {
-				Id   int    `json:"id"`
-				Name string `json:"name"`
-			} `json:"locale"`
-			Description string `json:"description"`
-		} `json:"details"`
-		Website              string `json:"website"`
-		Fixed                bool   `json:"fixed"`
-		HasCancelledContract bool   `json:"hasCancelledContract"`
-		IconPath             string `json:"iconPath"`
-		IconIsSet            bool   `json:"iconIsSet"`
-		ShopwareID           string `json:"haokeId"`
-		UserId               int    `json:"userId"`
-		CompanyId            int    `json:"companyId"`
-		CompanyName          string `json:"companyName"`
-		SaleMail             string `json:"saleMail"`
-		SupportMail          string `json:"supportMail"`
-		RatingMail           string `json:"ratingMail"`
-		SupportedLanguages   []struct {
-			Id   int    `json:"id"`
-			Name string `json:"name"`
-		} `json:"supportedLanguages"`
-		IconURL           string      `json:"iconUrl"`
-		CancelledContract interface{} `json:"cancelledContract"`
-	} `json:"producer"`
-	Type struct {
-		Id          int    `json:"id"`
-		Name        string `json:"name"`
-		Description string `json:"description"`
-	} `json:"type"`
-	Name            string `json:"name"`
-	Code            string `json:"code"`
-	ModuleKey       string `json:"moduleKey"`
-	LifecycleStatus struct {
-		Id          int    `json:"id"`
-		Name        string `json:"name"`
-		Description string `json:"description"`
-	} `json:"lifecycleStatus"`
-	Generation struct {
-		Id          int    `json:"id"`
-		Name        string `json:"name"`
-		Description string `json:"description"`
-	} `json:"generation"`
-	ActivationStatus struct {
-		Id          int    `json:"id"`
-		Name        string `json:"name"`
-		Description string `json:"description"`
-	} `json:"activationStatus"`
-	ApprovalStatus struct {
-		Id          int    `json:"id"`
-		Name        string `json:"name"`
-		Description string `json:"description"`
-	} `json:"approvalStatus"`
+	Id             string `json:"id"`
+	ProducerId     string `json:"producerId"`
+	Type           string `json:"type"`
+	Name           string `json:"name"`
 	StandardLocale Locale `json:"standardLocale"`
-	License        struct {
-		Id          int    `json:"id"`
-		Name        string `json:"name"`
-		Description string `json:"description"`
-	} `json:"license"`
-	Infos []*struct {
+	Infos          []*struct {
 		Id                 int          `json:"id"`
 		Locale             Locale       `json:"locale"`
 		Name               string       `json:"name"`
@@ -328,7 +227,7 @@ type CreateExtensionRequest struct {
 	Generation struct {
 		Name string `json:"name"`
 	} `json:"generation"`
-	ProducerID int `json:"producerId"`
+	ProducerID string `json:"producerId"`
 }
 
 const (
@@ -359,16 +258,6 @@ func (e ProducerEndpoint) CreateExtension(ctx context.Context, newExtension Crea
 	if err := json.Unmarshal(body, &extension); err != nil {
 		return nil, fmt.Errorf("create_extension: %v", err)
 	}
-
-	extension.Name = newExtension.Name
-
-	// Patch the name
-	err = e.UpdateExtension(ctx, &extension)
-
-	if err != nil {
-		return nil, err
-	}
-
 	return &extension, nil
 }
 
@@ -379,7 +268,7 @@ func (e ProducerEndpoint) UpdateExtension(ctx context.Context, extension *Extens
 	}
 
 	// Patch the name
-	r, err := e.c.NewAuthenticatedRequest(ctx, "PUT", fmt.Sprintf("%s/plugins/%d", ApiUrl, extension.Id), bytes.NewBuffer(requestBody))
+	r, err := e.c.NewAuthenticatedRequest(ctx, "PUT", fmt.Sprintf("%s/plugins/%s", ApiUrl, extension.Id), bytes.NewBuffer(requestBody))
 	if err != nil {
 		return err
 	}
@@ -389,8 +278,8 @@ func (e ProducerEndpoint) UpdateExtension(ctx context.Context, extension *Extens
 	return err
 }
 
-func (e ProducerEndpoint) DeleteExtension(ctx context.Context, id int) error {
-	r, err := e.c.NewAuthenticatedRequest(ctx, "DELETE", fmt.Sprintf("%s/plugins/%d", ApiUrl, id), nil)
+func (e ProducerEndpoint) DeleteExtension(ctx context.Context, id string) error {
+	r, err := e.c.NewAuthenticatedRequest(ctx, "DELETE", fmt.Sprintf("%s/plugins/%s", ApiUrl, id), nil)
 	if err != nil {
 		return err
 	}
@@ -424,13 +313,8 @@ func (e ProducerEndpoint) GetSoftwareVersions(ctx context.Context, generation st
 }
 
 type SoftwareVersion struct {
-	Id          int         `json:"id"`
-	Name        string      `json:"name"`
-	Parent      interface{} `json:"parent"`
-	Selectable  bool        `json:"selectable"`
-	Major       *string     `json:"major"`
-	ReleaseDate *string     `json:"releaseDate"`
-	Public      bool        `json:"public"`
+	Name       string `json:"name"`
+	Selectable bool   `json:"selectable"`
 }
 
 type Locale struct {

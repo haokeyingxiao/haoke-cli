@@ -25,7 +25,6 @@ var accountProducerInfoCmd = &cobra.Command{
 
 		logging.FromContext(cmd.Context()).Infof("Name: %s", profile.Name)
 		logging.FromContext(cmd.Context()).Infof("Prefix: %s", profile.Prefix)
-		logging.FromContext(cmd.Context()).Infof("Website: %s", profile.Website)
 
 		return nil
 	},

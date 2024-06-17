@@ -23,8 +23,8 @@ func TestParseEnvConfig(t *testing.T) {
 		companyId: 456,
 	}
 
-	t.Setenv("SHOPWARE_CLI_ACCOUNT_EMAIL", testData.email)
-	t.Setenv("SHOPWARE_CLI_ACCOUNT_PASSWORD", testData.password)
+	t.Setenv("HAOKE_CLI_ACCOUNT_EMAIL", testData.email)
+	t.Setenv("HAOKE_CLI_ACCOUNT_PASSWORD", testData.password)
 	t.Setenv("SHOPWARE_CLI_ACCOUNT_COMPANY", strconv.Itoa(testData.companyId))
 
 	assert.NoError(t, InitConfig(""))
@@ -122,8 +122,8 @@ func TestDontWriteEnvConfig(t *testing.T) {
 		companyId: 456,
 	}
 
-	t.Setenv("SHOPWARE_CLI_ACCOUNT_EMAIL", testData.email)
-	t.Setenv("SHOPWARE_CLI_ACCOUNT_PASSWORD", testData.password)
+	t.Setenv("HAOKE_CLI_ACCOUNT_EMAIL", testData.email)
+	t.Setenv("HAOKE_CLI_ACCOUNT_PASSWORD", testData.password)
 	t.Setenv("SHOPWARE_CLI_ACCOUNT_COMPANY", strconv.Itoa(testData.companyId))
 
 	assert.NoError(t, InitConfig(""))

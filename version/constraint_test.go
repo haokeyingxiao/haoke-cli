@@ -48,3 +48,8 @@ func TestConstraintVersionNumber(t *testing.T) {
 	assert.True(t, c.Check(Must(NewVersion("1.0.0"))))
 	assert.False(t, c.Check(Must(NewVersion("1.0.1"))))
 }
+func TestConstraintVersionNumber2(t *testing.T) {
+	c, _ := NewConstraint("~6.6.0")
+	v, _ := NewVersion("6.6.4.3")
+	assert.True(t, c.Check(v))
+}

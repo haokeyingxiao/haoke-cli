@@ -18,32 +18,17 @@ import (
 type SoftwareVersionList []SoftwareVersion
 
 type ExtensionBinary struct {
-	Id      int    `json:"id"`
-	Name    string `json:"name"`
-	Version string `json:"version"`
-	Status  struct {
-		Id          int    `json:"id"`
-		Name        string `json:"name"`
-		Description string `json:"description"`
-	} `json:"status"`
+	Id                         string              `json:"id"`
+	Name                       string              `json:"name"`
+	Version                    string              `json:"version"`
+	Status                     string              `json:"status"`
 	CompatibleSoftwareVersions SoftwareVersionList `json:"compatibleSoftwareVersions"`
-	Changelogs                 []struct {
-		Id     int `json:"id"`
-		Locale struct {
-			Id   int    `json:"id"`
-			Name string `json:"name"`
-		} `json:"locale"`
-		Text string `json:"text"`
-	} `json:"changelogs"`
-	CreationDate                string `json:"creationDate"`
-	LastChangeDate              string `json:"lastChangeDate"`
-	IonCubeEncrypted            bool   `json:"ionCubeEncrypted"`
-	LicenseCheckRequired        bool   `json:"licenseCheckRequired"`
-	HasActiveCodeReviewWarnings bool   `json:"hasActiveCodeReviewWarnings"`
+	CreationDate               string              `json:"creationDate"`
+	LastChangeDate             string              `json:"lastChangeDate"`
 }
 
 type ExtensionUpdate struct {
-	Id                   int
+	Id                   string
 	SoftwareVersions     []string                   `json:"softwareVersions"`
 	IonCubeEncrypted     bool                       `json:"ionCubeEncrypted"`
 	LicenseCheckRequired bool                       `json:"licenseCheckRequired"`
@@ -61,10 +46,10 @@ type ExtensionCreate struct {
 	Version          string                     `json:"version"`
 }
 
-func (e ProducerEndpoint) GetExtensionBinaries(ctx context.Context, extensionId int) ([]*ExtensionBinary, error) {
+func (e ProducerEndpoint) GetExtensionBinaries(ctx context.Context, extensionId string) ([]*ExtensionBinary, error) {
 	errorFormat := "GetExtensionBinaries: %v"
 
-	r, err := e.c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/producers/%d/plugins/%d/binaries", ApiUrl, e.producerId, extensionId), nil)
+	r, err := e.c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/producers/%s/plugins/%s/binaries", ApiUrl, e.producerId, extensionId), nil)
 	if err != nil {
 		return nil, fmt.Errorf(errorFormat, err)
 	}
@@ -82,7 +67,7 @@ func (e ProducerEndpoint) GetExtensionBinaries(ctx context.Context, extensionId 
 	return binaries, nil
 }
 
-func (e ProducerEndpoint) UpdateExtensionBinaryInfo(ctx context.Context, extensionId int, update ExtensionUpdate) error {
+func (e ProducerEndpoint) UpdateExtensionBinaryInfo(ctx context.Context, extensionId string, update ExtensionUpdate) error {
 	errorFormat := "UpdateExtensionBinaryInfo: %v"
 
 	content, err := json.Marshal(update)
@@ -90,7 +75,7 @@ func (e ProducerEndpoint) UpdateExtensionBinaryInfo(ctx context.Context, extensi
 		return fmt.Errorf(errorFormat, err)
 	}
 
-	r, err := e.c.NewAuthenticatedRequest(ctx, "PUT", fmt.Sprintf("%s/producers/%d/plugins/%d/binaries/%d", ApiUrl, e.producerId, extensionId, update.Id), bytes.NewReader(content))
+	r, err := e.c.NewAuthenticatedRequest(ctx, "PUT", fmt.Sprintf("%s/producers/%s/plugins/%s/binaries/%s", ApiUrl, e.producerId, extensionId, update.Id), bytes.NewReader(content))
 	if err != nil {
 		return fmt.Errorf(errorFormat, err)
 	}
@@ -100,7 +85,7 @@ func (e ProducerEndpoint) UpdateExtensionBinaryInfo(ctx context.Context, extensi
 	return err
 }
 
-func (e ProducerEndpoint) CreateExtensionBinary(ctx context.Context, extensionId int, create ExtensionCreate) (*ExtensionBinary, error) {
+func (e ProducerEndpoint) CreateExtensionBinary(ctx context.Context, extensionId string, create ExtensionCreate) (*ExtensionBinary, error) {
 	errorFormat := "CreateExtensionBinary: %v"
 
 	createPayload, err := json.Marshal(create)
@@ -108,7 +93,7 @@ func (e ProducerEndpoint) CreateExtensionBinary(ctx context.Context, extensionId
 		return nil, fmt.Errorf(errorFormat, err)
 	}
 
-	r, err := e.c.NewAuthenticatedRequest(ctx, "POST", fmt.Sprintf("%s/producers/%d/plugins/%d/binaries", ApiUrl, e.producerId, extensionId), bytes.NewReader(createPayload))
+	r, err := e.c.NewAuthenticatedRequest(ctx, "POST", fmt.Sprintf("%s/producers/%s/plugins/%s/binaries", ApiUrl, e.producerId, extensionId), bytes.NewReader(createPayload))
 	if err != nil {
 		return nil, fmt.Errorf(errorFormat, err)
 	}
@@ -126,7 +111,7 @@ func (e ProducerEndpoint) CreateExtensionBinary(ctx context.Context, extensionId
 	return binary, nil
 }
 
-func (e ProducerEndpoint) UpdateExtensionBinaryFile(ctx context.Context, extensionId, binaryId int, zipPath string) error {
+func (e ProducerEndpoint) UpdateExtensionBinaryFile(ctx context.Context, extensionId, binaryId string, zipPath string) error {
 	errorFormat := "UpdateExtensionBinaryFile: %v"
 
 	var b bytes.Buffer
@@ -151,7 +136,7 @@ func (e ProducerEndpoint) UpdateExtensionBinaryFile(ctx context.Context, extensi
 		return fmt.Errorf(errorFormat, err)
 	}
 
-	r, err := e.c.NewAuthenticatedRequest(ctx, "POST", fmt.Sprintf("%s/producers/%d/plugins/%d/binaries/%d/file", ApiUrl, e.producerId, extensionId, binaryId), &b)
+	r, err := e.c.NewAuthenticatedRequest(ctx, "POST", fmt.Sprintf("%s/producers/%s/plugins/%s/binaries/%s/file", ApiUrl, e.producerId, extensionId, binaryId), &b)
 	if err != nil {
 		return fmt.Errorf(errorFormat, err)
 	}
@@ -163,7 +148,7 @@ func (e ProducerEndpoint) UpdateExtensionBinaryFile(ctx context.Context, extensi
 	return err
 }
 
-func (e ProducerEndpoint) UpdateExtensionIcon(ctx context.Context, extensionId int, iconFile string) error {
+func (e ProducerEndpoint) UpdateExtensionIcon(ctx context.Context, extensionId string, iconFile string) error {
 	errorFormat := "UpdateExtensionIcon: %v"
 
 	var b bytes.Buffer
@@ -188,7 +173,7 @@ func (e ProducerEndpoint) UpdateExtensionIcon(ctx context.Context, extensionId i
 		return fmt.Errorf(errorFormat, err)
 	}
 
-	r, err := e.c.NewAuthenticatedRequest(ctx, "POST", fmt.Sprintf("%s/plugins/%d/icon", ApiUrl, extensionId), &b)
+	r, err := e.c.NewAuthenticatedRequest(ctx, "POST", fmt.Sprintf("%s/plugins/%s/icon", ApiUrl, extensionId), &b)
 	if err != nil {
 		return fmt.Errorf(errorFormat, err)
 	}
@@ -201,10 +186,10 @@ func (e ProducerEndpoint) UpdateExtensionIcon(ctx context.Context, extensionId i
 }
 
 type ExtensionImage struct {
-	Id         int    `json:"id"`
+	Id         string `json:"id"`
 	RemoteLink string `json:"remoteLink"`
 	Details    []struct {
-		Id        int    `json:"id"`
+		Id        string `json:"id"`
 		Preview   bool   `json:"preview"`
 		Activated bool   `json:"activated"`
 		Caption   string `json:"caption"`
@@ -213,10 +198,10 @@ type ExtensionImage struct {
 	Priority int `json:"priority"`
 }
 
-func (e ProducerEndpoint) GetExtensionImages(ctx context.Context, extensionId int) ([]*ExtensionImage, error) {
+func (e ProducerEndpoint) GetExtensionImages(ctx context.Context, extensionId string) ([]*ExtensionImage, error) {
 	errorFormat := "GetExtensionImages: %v"
 
-	r, err := e.c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/plugins/%d/pictures", ApiUrl, extensionId), nil)
+	r, err := e.c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/plugins/%s/pictures", ApiUrl, extensionId), nil)
 	if err != nil {
 		return nil, fmt.Errorf(errorFormat, err)
 	}
@@ -234,10 +219,10 @@ func (e ProducerEndpoint) GetExtensionImages(ctx context.Context, extensionId in
 	return images, nil
 }
 
-func (e ProducerEndpoint) DeleteExtensionImages(ctx context.Context, extensionId, imageId int) error {
+func (e ProducerEndpoint) DeleteExtensionImages(ctx context.Context, extensionId, imageId string) error {
 	errorFormat := "DeleteExtensionImages: %v"
 
-	r, err := e.c.NewAuthenticatedRequest(ctx, "DELETE", fmt.Sprintf("%s/plugins/%d/pictures/%d", ApiUrl, extensionId, imageId), nil)
+	r, err := e.c.NewAuthenticatedRequest(ctx, "DELETE", fmt.Sprintf("%s/plugins/%s/pictures/%s", ApiUrl, extensionId, imageId), nil)
 	if err != nil {
 		return fmt.Errorf(errorFormat, err)
 	}
@@ -247,7 +232,7 @@ func (e ProducerEndpoint) DeleteExtensionImages(ctx context.Context, extensionId
 	return err
 }
 
-func (e ProducerEndpoint) UpdateExtensionImage(ctx context.Context, extensionId int, image *ExtensionImage) error {
+func (e ProducerEndpoint) UpdateExtensionImage(ctx context.Context, extensionId string, image *ExtensionImage) error {
 	errorFormat := "UpdateExtensionImage: %v"
 
 	content, err := json.Marshal(image)
@@ -255,7 +240,7 @@ func (e ProducerEndpoint) UpdateExtensionImage(ctx context.Context, extensionId 
 		return fmt.Errorf(errorFormat, err)
 	}
 
-	r, err := e.c.NewAuthenticatedRequest(ctx, "PUT", fmt.Sprintf("%s/plugins/%d/pictures/%d", ApiUrl, extensionId, image.Id), bytes.NewReader(content))
+	r, err := e.c.NewAuthenticatedRequest(ctx, "PUT", fmt.Sprintf("%s/plugins/%s/pictures/%s", ApiUrl, extensionId, image.Id), bytes.NewReader(content))
 	if err != nil {
 		return fmt.Errorf(errorFormat, err)
 	}
@@ -265,7 +250,7 @@ func (e ProducerEndpoint) UpdateExtensionImage(ctx context.Context, extensionId 
 	return err
 }
 
-func (e ProducerEndpoint) AddExtensionImage(ctx context.Context, extensionId int, file string) (*ExtensionImage, error) {
+func (e ProducerEndpoint) AddExtensionImage(ctx context.Context, extensionId string, file string) (*ExtensionImage, error) {
 	errorFormat := "AddExtensionImage: %v"
 
 	var b bytes.Buffer
@@ -289,7 +274,7 @@ func (e ProducerEndpoint) AddExtensionImage(ctx context.Context, extensionId int
 		return nil, fmt.Errorf(errorFormat, err)
 	}
 
-	r, err := e.c.NewAuthenticatedRequest(ctx, "POST", fmt.Sprintf("%s/plugins/%d/pictures", ApiUrl, extensionId), &b)
+	r, err := e.c.NewAuthenticatedRequest(ctx, "POST", fmt.Sprintf("%s/plugins/%spictures", ApiUrl, extensionId), &b)
 	if err != nil {
 		return nil, fmt.Errorf(errorFormat, err)
 	}
@@ -310,10 +295,10 @@ func (e ProducerEndpoint) AddExtensionImage(ctx context.Context, extensionId int
 	return list[0], nil
 }
 
-func (e ProducerEndpoint) TriggerCodeReview(ctx context.Context, extensionId int) error {
+func (e ProducerEndpoint) TriggerCodeReview(ctx context.Context, extensionId string) error {
 	errorFormat := "TriggerCodeReview: %v"
 
-	r, err := e.c.NewAuthenticatedRequest(ctx, "POST", fmt.Sprintf("%s/plugins/%d/reviews", ApiUrl, extensionId), nil)
+	r, err := e.c.NewAuthenticatedRequest(ctx, "POST", fmt.Sprintf("%s/plugins/%s/reviews", ApiUrl, extensionId), nil)
 	if err != nil {
 		return fmt.Errorf(errorFormat, err)
 	}
@@ -323,10 +308,10 @@ func (e ProducerEndpoint) TriggerCodeReview(ctx context.Context, extensionId int
 	return err
 }
 
-func (e ProducerEndpoint) GetBinaryReviewResults(ctx context.Context, extensionId, binaryId int) ([]BinaryReviewResult, error) {
+func (e ProducerEndpoint) GetBinaryReviewResults(ctx context.Context, extensionId, binaryId string) ([]BinaryReviewResult, error) {
 	errorFormat := "GetBinaryReviewResults: %v"
 
-	r, err := e.c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/plugins/%d/binaries/%d/checkresults", ApiUrl, extensionId, binaryId), nil)
+	r, err := e.c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/plugins/%s/binaries/%s/checkresults", ApiUrl, extensionId, binaryId), nil)
 	if err != nil {
 		return nil, fmt.Errorf(errorFormat, err)
 	}

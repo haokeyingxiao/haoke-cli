@@ -2,11 +2,9 @@ package account
 
 import (
 	"fmt"
-	"os"
-	"strconv"
-
 	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
+	"os"
 
 	account_api "github.com/haokeyingxiao/haoke-cli/account-api"
 )
@@ -50,9 +48,9 @@ var accountCompanyProducerExtensionListCmd = &cobra.Command{
 			}
 
 			table.Append([]string{
-				strconv.FormatInt(int64(extension.Id), 10),
+				extension.Id,
 				extension.Name,
-				extension.Generation.Description,
+				extension.Type,
 				compatible,
 				extension.Status.Name,
 			})

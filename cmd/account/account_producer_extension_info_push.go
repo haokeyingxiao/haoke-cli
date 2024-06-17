@@ -321,7 +321,7 @@ func parseInlineablePath(path, extensionDir string) (string, error) {
 	return buf.String(), nil
 }
 
-func uploadImagesByDirectory(ctx context.Context, extensionId int, directory string, index int, p *accountApi.ProducerEndpoint) error {
+func uploadImagesByDirectory(ctx context.Context, extensionId string, directory string, index int, p *accountApi.ProducerEndpoint) error {
 	// index 0 is for german, 1 for english defined by account api
 	if index == 0 {
 		directory = path.Join(directory, "de")
