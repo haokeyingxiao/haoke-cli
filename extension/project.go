@@ -30,14 +30,14 @@ func GetShopwareProjectConstraint(project string) (*version.Constraints, error) 
 		return nil, fmt.Errorf("could not parse composer.json: %w", err)
 	}
 
-	constraint, ok := composer.Require["shopware/core"]
+	constraint, ok := composer.Require["haokeyingxiao/core"]
 
 	if !ok {
 		if v, err := getProjectConstraintFromKernel(project); err == nil {
 			return v, nil
 		}
 
-		return nil, fmt.Errorf("missing shopware/core requirement in composer.json")
+		return nil, fmt.Errorf("missing haokeyingxiao/core requirement in composer.json")
 	}
 
 	c, err := version.NewConstraint(constraint)
@@ -57,7 +57,7 @@ func GetShopwareProjectConstraint(project string) (*version.Constraints, error) 
 			}
 
 			for _, pkg := range lock.Packages {
-				if pkg.Name == "shopware/core" {
+				if pkg.Name == "haokeyingxiao/core" {
 					v, err := version.NewConstraint(pkg.Version)
 					if err != nil {
 						return getProjectConstraintFromKernel(project)
