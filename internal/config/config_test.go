@@ -33,7 +33,6 @@ func TestParseEnvConfig(t *testing.T) {
 	confService := Config{}
 	assert.Equal(t, testData.email, confService.GetAccountEmail())
 	assert.Equal(t, testData.password, confService.GetAccountPassword())
-	assert.Equal(t, testData.companyId, confService.GetAccountCompanyId())
 }
 
 func TestParseFileConfig(t *testing.T) {
@@ -58,7 +57,6 @@ func TestParseFileConfig(t *testing.T) {
 	confService := Config{}
 	assert.Equal(t, testData.email, confService.GetAccountEmail())
 	assert.Equal(t, testData.password, confService.GetAccountPassword())
-	assert.Equal(t, testData.companyId, confService.GetAccountCompanyId())
 	assert.Equal(t, testConfig, state.cfgPath)
 }
 
@@ -91,8 +89,6 @@ func TestSaveConfig(t *testing.T) {
 
 	assert.NoError(t, configService.SetAccountPassword(testData.password))
 
-	assert.NoError(t, configService.SetAccountCompanyId(testData.companyId))
-
 	assert.True(t, state.modified)
 
 	assert.NoError(t, SaveConfig())
@@ -107,7 +103,6 @@ func TestSaveConfig(t *testing.T) {
 
 	assert.Equal(t, testData.email, newConf.Account.Email)
 	assert.Equal(t, testData.password, newConf.Account.Password)
-	assert.Equal(t, testData.companyId, newConf.Account.Company)
 }
 
 func TestDontWriteEnvConfig(t *testing.T) {
@@ -132,7 +127,6 @@ func TestDontWriteEnvConfig(t *testing.T) {
 	confService := Config{}
 	assert.Error(t, confService.SetAccountEmail("test@foo.com"))
 	assert.Error(t, confService.SetAccountPassword("S3CR3TF4RT3St"))
-	assert.Error(t, confService.SetAccountCompanyId(111))
 }
 
 func resetState() {
