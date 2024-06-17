@@ -32,6 +32,7 @@ var (
 		".gitlab-ci.yml",
 		".gitpod.Dockerfile",
 		".gitpod.yml",
+		".php-cs-fixer.cache",
 		".php_cs.cache",
 		".php_cs.dist",
 		".sw-zip-blacklist",
@@ -42,14 +43,16 @@ var (
 		"auth.json",
 		"bitbucket-pipelines.yml",
 		"build.sh",
+		"grumphp.yml",
+		"phpunit.xml.dist",
+		"psalm.xml",
+		"rector.php",
 		"src/Resources/app/administration/node_modules",
 		"src/Resources/app/node_modules",
 		"src/Resources/app/storefront/node_modules",
 		"src/Resources/store",
 		"tests",
 		"var",
-		"grumphp.yml",
-		"psalm.xml",
 	}
 
 	defaultNotAllowedFiles = []string{
