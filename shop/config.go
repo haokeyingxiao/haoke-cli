@@ -8,8 +8,8 @@ import (
 	"dario.cat/mergo"
 
 	"github.com/doutorfinancas/go-mad/core"
-	adminSdk "github.com/haokeyingxiao/go-haoke-admin-api-sdk"
 	"github.com/google/uuid"
+	adminSdk "github.com/haokeyingxiao/go-haoke-admin-api-sdk"
 	"gopkg.in/yaml.v3"
 )
 
