@@ -35,7 +35,7 @@ func NewApi(ctx context.Context, config AccountConfig) (*Client, error) {
 		return nil, fmt.Errorf(errorFormat, err)
 	}
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, ApiUrl+"/accesstokens", bytes.NewBuffer(s))
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, ApiUrl+"/swplatform/login", bytes.NewBuffer(s))
 	if err != nil {
 		return nil, fmt.Errorf("create access token request: %w", err)
 	}
@@ -80,10 +80,12 @@ func NewApi(ctx context.Context, config AccountConfig) (*Client, error) {
 }
 
 type token struct {
-	Token       string      `json:"token"`
-	Expire      tokenExpire `json:"expire"`
-	UserID      string      `json:"userId"`
-	LegacyLogin bool        `json:"legacyLogin"`
+	ShopUserToken struct {
+		Token          string `json:"token"`
+		ExpirationDate string `json:"expirationDate"`
+	} `json:"shopUserToken"`
+	Expire tokenExpire `json:"expire"`
+	UserID string      `json:"userId"`
 }
 
 type tokenExpire struct {

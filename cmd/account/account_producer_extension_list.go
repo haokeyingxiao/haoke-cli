@@ -5,6 +5,7 @@ import (
 	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
 	"os"
+	"strconv"
 
 	account_api "github.com/haokeyingxiao/haoke-cli/account-api"
 )
@@ -48,7 +49,7 @@ var accountCompanyProducerExtensionListCmd = &cobra.Command{
 			}
 
 			table.Append([]string{
-				extension.Id,
+				strconv.FormatInt(int64(extension.Id), 10),
 				extension.Name,
 				extension.Type,
 				compatible,

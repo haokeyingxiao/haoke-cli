@@ -32,7 +32,7 @@ func (c *Client) NewAuthenticatedRequest(ctx context.Context, method, path strin
 
 	r.Header.Set("content-type", "application/json")
 	r.Header.Set("accept", "application/json")
-	r.Header.Set("x-haoke-token", c.Token.Token)
+	r.Header.Set("X-Shopware-Platform-Token", c.Token.ShopUserToken.Token)
 	r.Header.Set("user-agent", httpUserAgent)
 
 	return r, nil

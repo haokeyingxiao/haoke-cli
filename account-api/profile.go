@@ -13,7 +13,7 @@ import (
 func (c *Client) GetMyProfile(ctx context.Context) (*MyProfile, error) {
 	errorFormat := "GetMyProfile: %v"
 
-	request, err := c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/account/%s", ApiUrl, c.Token.UserID), nil)
+	request, err := c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/swplatform/account/%s", ApiUrl, c.Token.UserID), nil)
 	if err != nil {
 		return nil, fmt.Errorf(errorFormat, err)
 	}

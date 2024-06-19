@@ -131,11 +131,11 @@ func (e ProducerEndpoint) GetExtensionByName(ctx context.Context, name string) (
 	return nil, fmt.Errorf("cannot find Extension by name %s", name)
 }
 
-func (e ProducerEndpoint) GetExtensionById(ctx context.Context, id string) (*Extension, error) {
+func (e ProducerEndpoint) GetExtensionById(ctx context.Context, id int) (*Extension, error) {
 	errorFormat := "GetExtensionById: %v"
 
 	// Create it
-	r, err := e.c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/plugins/%s", ApiUrl, id), nil)
+	r, err := e.c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/plugins/%d", ApiUrl, id), nil)
 	if err != nil {
 		return nil, fmt.Errorf(errorFormat, err)
 	}
@@ -154,7 +154,7 @@ func (e ProducerEndpoint) GetExtensionById(ctx context.Context, id string) (*Ext
 }
 
 type Extension struct {
-	Id             string `json:"id"`
+	Id             int    `json:"id"`
 	ProducerId     string `json:"producerId"`
 	Type           string `json:"type"`
 	Name           string `json:"name"`
@@ -178,48 +178,14 @@ type Extension struct {
 	Categories                          []StoreCategory    `json:"categories"`
 	Category                            *StoreCategory     `json:"selectedFutureCategory"`
 	Addons                              []interface{}      `json:"addons"`
-	LastChange                          string             `json:"lastChange"`
-	CreationDate                        string             `json:"creationDate"`
-	Support                             bool               `json:"support"`
-	SupportOnlyCommercial               bool               `json:"supportOnlyCommercial"`
-	IconPath                            string             `json:"iconPath"`
-	IconIsSet                           bool               `json:"iconIsSet"`
-	ExamplePageUrl                      string             `json:"examplePageUrl"`
-	Demos                               []interface{}      `json:"demos"`
 	Localizations                       []Locale           `json:"localizations"`
-	LatestBinary                        interface{}        `json:"latestBinary"`
-	MigrationSupport                    bool               `json:"migrationSupport"`
 	AutomaticBugfixVersionCompatibility bool               `json:"automaticBugfixVersionCompatibility"`
-	HiddenInStore                       bool               `json:"hiddenInStore"`
-	Certification                       interface{}        `json:"certification"`
 	ProductType                         *StoreProductType  `json:"productType"`
 	Status                              struct {
 		Name string `json:"name"`
 	} `json:"status"`
-	MinimumMarketingSoftwareVersion       interface{} `json:"minimumMarketingSoftwareVersion"`
-	IsSubscriptionEnabled                 bool        `json:"isSubscriptionEnabled"`
-	ReleaseDate                           interface{} `json:"releaseDate"`
-	PlannedReleaseDate                    interface{} `json:"plannedReleaseDate"`
-	LastBusinessModelChangeDate           interface{} `json:"lastBusinessModelChangeDate"`
-	IsSW5Compatible                       bool        `json:"isSW5Compatible"`
-	Subprocessors                         interface{} `json:"subprocessors"`
-	PluginTestingInstanceDisabled         bool        `json:"pluginTestingInstanceDisabled"`
-	IconURL                               string      `json:"iconUrl"`
-	Pictures                              string      `json:"pictures"`
-	HasPictures                           bool        `json:"hasPictures"`
-	Comments                              string      `json:"comments"`
-	Reviews                               string      `json:"reviews"`
-	IsPremiumPlugin                       bool        `json:"isPremiumPlugin"`
-	IsAdvancedFeature                     bool        `json:"isAdvancedFeature"`
-	IsEnterpriseAccelerator               bool        `json:"isEnterpriseAccelerator"`
-	IsSW6EnterpriseFeature                bool        `json:"isSW6EnterpriseFeature"`
-	IsSW6ProfessionalEditionFeature       bool        `json:"isSW6ProfessionalEditionFeature"`
-	Binaries                              interface{} `json:"binaries"`
-	Predecessor                           interface{} `json:"predecessor"`
-	Successor                             interface{} `json:"successor"`
-	IsCompatibleWithLatestShopwareVersion bool        `json:"isCompatibleWithLatestShopwareVersion"`
-	PluginPreview                         interface{} `json:"pluginPreview"`
-	IsNoLongerAvailableForDownload        bool        `json:"isNoLongerAvailableForDownload"`
+	IconURL                               string `json:"iconUrl"`
+	IsCompatibleWithLatestShopwareVersion bool   `json:"isCompatibleWithLatestShopwareVersion"`
 }
 
 type CreateExtensionRequest struct {
@@ -231,7 +197,6 @@ type CreateExtensionRequest struct {
 }
 
 const (
-	GenerationClassic  = "classic"
 	GenerationThemes   = "themes"
 	GenerationApps     = "apps"
 	GenerationPlatform = "platform"
@@ -268,7 +233,7 @@ func (e ProducerEndpoint) UpdateExtension(ctx context.Context, extension *Extens
 	}
 
 	// Patch the name
-	r, err := e.c.NewAuthenticatedRequest(ctx, "PUT", fmt.Sprintf("%s/plugins/%s", ApiUrl, extension.Id), bytes.NewBuffer(requestBody))
+	r, err := e.c.NewAuthenticatedRequest(ctx, "PUT", fmt.Sprintf("%s/plugins/%d", ApiUrl, extension.Id), bytes.NewBuffer(requestBody))
 	if err != nil {
 		return err
 	}

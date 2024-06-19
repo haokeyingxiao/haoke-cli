@@ -1,12 +1,12 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"title": "shopware-cli",
+	"title": "haoke-cli",
 	"$ref": "#/definitions/Config",
-	"description": "shopware cli extension configuration definition file",
+	"description": "haoke cli extension configuration definition file",
 	"definitions": {
 		"Config": {
 			"type": "object",
-			"title": ".shopware-extension.yml",
+			"title": ".haoke-extension.yml",
 			"additionalProperties": false,
 			"properties": {
 				"build": {
@@ -206,6 +206,7 @@
 						"enum": [
 							"de_DE",
 							"en_GB",
+							"zh_CN",
 							"bs_BA",
 							"bg_BG",
 							"cs_CZ",
@@ -239,7 +240,7 @@
 							"tr_TR",
 							"uk_UA",
 							"vi_VN"
-						],
+						]
 					}
 				},
 				"categories": {
@@ -308,7 +309,8 @@
 					"type": "string",
 					"enum": [
 						"en_GB",
-						"de_DE"
+						"de_DE",
+						"zh-CN"
 					]
 				},
 				"type": {

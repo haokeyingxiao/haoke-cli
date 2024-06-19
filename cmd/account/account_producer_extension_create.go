@@ -11,12 +11,12 @@ import (
 )
 
 var accountCompanyProducerExtensionCreateCmd = &cobra.Command{
-	Use:   "create [name] [classic|platform|themes|apps]",
+	Use:   "create [name] [platform|themes|apps]",
 	Short: "Creates a new extension",
 	Args:  cobra.ExactArgs(2),
 	ValidArgsFunction: func(_ *cobra.Command, args []string, _ string) ([]string, cobra.ShellCompDirective) {
 		if len(args) == 1 {
-			return []string{accountApi.GenerationApps, accountApi.GenerationClassic, accountApi.GenerationThemes, accountApi.GenerationPlatform}, cobra.ShellCompDirectiveNoFileComp
+			return []string{accountApi.GenerationApps, accountApi.GenerationThemes, accountApi.GenerationPlatform}, cobra.ShellCompDirectiveNoFileComp
 		}
 
 		return []string{}, cobra.ShellCompDirectiveNoFileComp
@@ -32,8 +32,8 @@ var accountCompanyProducerExtensionCreateCmd = &cobra.Command{
 			return fmt.Errorf("cannot get producer profile: %w", err)
 		}
 
-		if args[1] != accountApi.GenerationApps && args[1] != accountApi.GenerationPlatform && args[1] != accountApi.GenerationThemes && args[1] != accountApi.GenerationClassic {
-			return fmt.Errorf("generation must be one of these options: %s %s %s %s", accountApi.GenerationPlatform, accountApi.GenerationThemes, accountApi.GenerationClassic, accountApi.GenerationApps)
+		if args[1] != accountApi.GenerationApps && args[1] != accountApi.GenerationPlatform && args[1] != accountApi.GenerationThemes {
+			return fmt.Errorf("generation must be one of these options: %s %s %s", accountApi.GenerationPlatform, accountApi.GenerationThemes, accountApi.GenerationApps)
 		}
 
 		if !strings.HasPrefix(args[0], profile.Prefix) {
