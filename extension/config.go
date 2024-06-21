@@ -68,6 +68,7 @@ type Translatable interface {
 type ConfigTranslated[T Translatable] struct {
 	German  *T `yaml:"de"`
 	English *T `yaml:"en"`
+	Chinese *T `yaml:"zh"`
 }
 
 type ConfigStoreFaq struct {
@@ -85,11 +86,13 @@ type ConfigStoreImage struct {
 type ConfigStoreImageActivate struct {
 	German  bool `yaml:"de"`
 	English bool `yaml:"en"`
+	Chinese bool `yaml:"zh"`
 }
 
 type ConfigStoreImagePreview struct {
 	German  bool `yaml:"de"`
 	English bool `yaml:"en"`
+	Chinese bool `yaml:"zh"`
 }
 
 type Config struct {

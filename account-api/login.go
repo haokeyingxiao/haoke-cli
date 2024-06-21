@@ -95,7 +95,7 @@ type tokenExpire struct {
 }
 
 type LoginRequest struct {
-	Email    string `json:"haokeId"`
+	Email    string `json:"shopwareId"`
 	Password string `json:"password"`
 }
 

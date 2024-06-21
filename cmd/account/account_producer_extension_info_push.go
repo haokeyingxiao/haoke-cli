@@ -68,9 +68,12 @@ var accountCompanyProducerExtensionInfoPushCmd = &cobra.Command{
 			if language == "de" {
 				info.Name = metadata.Label.German
 				info.ShortDescription = metadata.Description.German
-			} else {
+			} else if language == "en" {
 				info.Name = metadata.Label.English
 				info.ShortDescription = metadata.Description.English
+			} else {
+				info.Name = metadata.Label.Chinese
+				info.ShortDescription = metadata.Description.Chinese
 			}
 		}
 
@@ -124,6 +127,9 @@ var accountCompanyProducerExtensionInfoPushCmd = &cobra.Command{
 
 						apiImage.Details[1].Activated = configImage.Activate.English
 						apiImage.Details[1].Preview = configImage.Preview.English
+
+						apiImage.Details[2].Activated = configImage.Activate.Chinese
+						apiImage.Details[2].Preview = configImage.Preview.Chinese
 
 						err = p.UpdateExtensionImage(cmd.Context(), storeExt.Id, apiImage)
 
@@ -325,8 +331,11 @@ func uploadImagesByDirectory(ctx context.Context, extensionId int, directory str
 	// index 0 is for german, 1 for english defined by account api
 	if index == 0 {
 		directory = path.Join(directory, "de")
-	} else {
+	} else if index == 1 {
 		directory = path.Join(directory, "en")
+	} else {
+		directory = path.Join(directory, "zh")
+
 	}
 
 	images, err := os.ReadDir(directory)
