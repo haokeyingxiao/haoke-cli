@@ -43,9 +43,7 @@ type ConfigExtraBundle struct {
 }
 
 type ConfigStore struct {
-	Availabilities                      *[]string                          `yaml:"availabilities"`
 	DefaultLocale                       *string                            `yaml:"default_locale"`
-	Localizations                       *[]string                          `yaml:"localizations"`
 	Categories                          *[]string                          `yaml:"categories"`
 	Type                                *string                            `yaml:"type"`
 	Icon                                *string                            `yaml:"icon"`
@@ -59,6 +57,7 @@ type ConfigStore struct {
 	Faq                                 ConfigTranslated[[]ConfigStoreFaq] `yaml:"faq"`
 	Images                              *[]ConfigStoreImage                `yaml:"images,omitempty"`
 	ImageDirectory                      *string                            `yaml:"image_directory,omitempty"`
+	Price                               *ConfigStorePrice                  `yaml:"price,omitempty"`
 }
 
 type Translatable interface {
@@ -69,6 +68,11 @@ type ConfigTranslated[T Translatable] struct {
 	German  *T `yaml:"de"`
 	English *T `yaml:"en"`
 	Chinese *T `yaml:"zh"`
+}
+
+type ConfigStorePrice struct {
+	Type  string  `yaml:"type"`
+	Money float32 `yaml:"money"`
 }
 
 type ConfigStoreFaq struct {
@@ -107,7 +111,7 @@ func readExtensionConfig(dir string) (*Config, error) {
 	config.Build.Zip.Assets.Enabled = true
 	config.Build.Zip.Composer.Enabled = true
 
-	fileName := fmt.Sprintf("%s/.shopware-extension.yml", dir)
+	fileName := fmt.Sprintf("%s/.haoke-extension.yml", dir)
 	_, err := os.Stat(fileName)
 
 	if os.IsNotExist(err) {
@@ -145,6 +149,9 @@ func validateExtensionConfig(config *Config) error {
 	if config.Store.Tags.German != nil && len(*config.Store.Tags.German) > 5 {
 		return fmt.Errorf("store.info.tags.de can contain maximal 5 items")
 	}
+	if config.Store.Tags.Chinese != nil && len(*config.Store.Tags.Chinese) > 5 {
+		return fmt.Errorf("store.info.tags.zh can contain maximal 5 items")
+	}
 
 	if config.Store.Videos.English != nil && len(*config.Store.Videos.English) > 2 {
 		return fmt.Errorf("store.info.videos.en can contain maximal 2 items")
@@ -154,5 +161,8 @@ func validateExtensionConfig(config *Config) error {
 		return fmt.Errorf("store.info.videos.de can contain maximal 2 items")
 	}
 
+	if config.Store.Videos.Chinese != nil && len(*config.Store.Videos.Chinese) > 2 {
+		return fmt.Errorf("store.info.videos.zh can contain maximal 2 items")
+	}
 	return nil
 }

@@ -122,14 +122,6 @@ var accountCompanyProducerExtensionInfoPushCmd = &cobra.Command{
 						}
 
 						apiImage.Priority = configImage.Priority
-						apiImage.Details[0].Activated = configImage.Activate.German
-						apiImage.Details[0].Preview = configImage.Preview.German
-
-						apiImage.Details[1].Activated = configImage.Activate.English
-						apiImage.Details[1].Preview = configImage.Preview.English
-
-						apiImage.Details[2].Activated = configImage.Activate.Chinese
-						apiImage.Details[2].Preview = configImage.Preview.Chinese
 
 						err = p.UpdateExtensionImage(cmd.Context(), storeExt.Id, apiImage)
 
@@ -166,34 +158,6 @@ func updateStoreInfo(ext *accountApi.Extension, zipExt extension.Extension, cfg 
 		}
 	}
 
-	if cfg.Store.Localizations != nil {
-		newLocales := make([]accountApi.Locale, 0)
-
-		for _, locale := range info.Locales {
-			for _, configLocale := range *cfg.Store.Localizations {
-				if locale.Name == configLocale {
-					newLocales = append(newLocales, locale)
-				}
-			}
-		}
-
-		ext.Localizations = newLocales
-	}
-
-	if cfg.Store.Availabilities != nil {
-		newAvailabilities := make([]accountApi.StoreAvailablity, 0)
-
-		for _, availability := range info.StoreAvailabilities {
-			for _, configLocale := range *cfg.Store.Availabilities {
-				if availability.Name == configLocale {
-					newAvailabilities = append(newAvailabilities, availability)
-				}
-			}
-		}
-
-		ext.StoreAvailabilities = newAvailabilities
-	}
-
 	if cfg.Store.Categories != nil {
 		for _, category := range info.FutureCategories {
 			for _, configCategory := range *cfg.Store.Categories {
@@ -211,6 +175,13 @@ func updateStoreInfo(ext *accountApi.Extension, zipExt extension.Extension, cfg 
 			if storeProductType.Name == *cfg.Store.Type {
 				ext.ProductType = &info.ProductTypes[i]
 			}
+		}
+	}
+
+	if cfg.Store.Price != nil {
+		ext.PriceModels = &accountApi.StorePrice{
+			Type:  cfg.Store.Price.Type,
+			Money: cfg.Store.Price.Money,
 		}
 	}
 
@@ -291,8 +262,7 @@ func getTranslation[T extension.Translatable](language string, config extension.
 	} else if language == "en" {
 		return config.English
 	}
-
-	return nil
+	return config.Chinese
 }
 
 func init() {
@@ -335,7 +305,6 @@ func uploadImagesByDirectory(ctx context.Context, extensionId int, directory str
 		directory = path.Join(directory, "en")
 	} else {
 		directory = path.Join(directory, "zh")
-
 	}
 
 	images, err := os.ReadDir(directory)
@@ -345,10 +314,9 @@ func uploadImagesByDirectory(ctx context.Context, extensionId int, directory str
 		return nil //nolint:nilerr
 	}
 
-	imagesLen := len(images) - 1
 	re := regexp.MustCompile(`^(\d+)([_-][a-zA-Z0-9-_]+)?$`)
 
-	for i, image := range images {
+	for _, image := range images {
 		if image.IsDir() {
 			continue
 		}
@@ -377,18 +345,6 @@ func uploadImagesByDirectory(ctx context.Context, extensionId int, directory str
 		}
 
 		apiImage.Priority = priority
-		apiImage.Details[0].Activated = false
-		apiImage.Details[0].Preview = false
-		apiImage.Details[1].Activated = false
-		apiImage.Details[1].Preview = false
-
-		if index == 0 {
-			apiImage.Details[0].Activated = true
-			apiImage.Details[0].Preview = imagesLen-i == 0
-		} else {
-			apiImage.Details[1].Activated = true
-			apiImage.Details[1].Preview = imagesLen-i == 0
-		}
 
 		if err := p.UpdateExtensionImage(ctx, extensionId, apiImage); err != nil {
 			return fmt.Errorf("cannot update image information of extension: %w", err)

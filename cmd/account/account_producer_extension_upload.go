@@ -181,5 +181,5 @@ var skipWaitingForCodereviewResult bool
 
 func init() {
 	accountCompanyProducerExtensionCmd.AddCommand(accountCompanyProducerExtensionUploadCmd)
-	accountCompanyProducerExtensionCmd.Flags().BoolVar(&skipWaitingForCodereviewResult, "skip-for-review-result", false, "Skips waiting for Code review result")
+	accountCompanyProducerExtensionCmd.Flags().BoolVar(&skipWaitingForCodereviewResult, "skip-for-review-result", true, "Skips waiting for Code review result")
 }

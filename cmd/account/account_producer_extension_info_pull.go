@@ -50,8 +50,6 @@ var accountCompanyProducerExtensionInfoPullCmd = &cobra.Command{
 
 		resourcesFolder := path.Join(zipExt.GetPath(), "src/Resources/store/")
 		categoryList := make([]string, 0)
-		availabilities := make([]string, 0)
-		localizations := make([]string, 0)
 		tagsDE := make([]string, 0)
 		tagsEN := make([]string, 0)
 		videosDE := make([]string, 0)
@@ -90,15 +88,6 @@ var accountCompanyProducerExtensionInfoPullCmd = &cobra.Command{
 				break
 			}
 		}
-
-		for _, localization := range storeExt.Localizations {
-			localizations = append(localizations, localization.Name)
-		}
-
-		for _, a := range storeExt.StoreAvailabilities {
-			availabilities = append(availabilities, a.Name)
-		}
-
 		storeImages, err := p.GetExtensionImages(cmd.Context(), storeExt.Id)
 		if err != nil {
 			return fmt.Errorf("cannot get extension images: %w", err)
@@ -200,8 +189,6 @@ var accountCompanyProducerExtensionInfoPullCmd = &cobra.Command{
 		newCfg.Store.DefaultLocale = &storeExt.StandardLocale.Name
 		newCfg.Store.Type = &extType
 		newCfg.Store.AutomaticBugfixVersionCompatibility = &storeExt.AutomaticBugfixVersionCompatibility
-		newCfg.Store.Availabilities = &availabilities
-		newCfg.Store.Localizations = &localizations
 		newCfg.Store.Description = extension.ConfigTranslated[string]{German: &germanDescription, English: &englishDescription}
 		newCfg.Store.InstallationManual = extension.ConfigTranslated[string]{German: &germanInstallationManual, English: &englishInstallationManual}
 		newCfg.Store.Categories = &categoryList
@@ -271,30 +258,6 @@ func downloadFileTo(ctx context.Context, url string, target string) error {
 
 func writeImages(ctx context.Context, imagePath string, index int, storeImages []*account_api.ExtensionImage) error {
 	imageMap := make(map[int]string)
-
-	for _, image := range storeImages {
-		if image.Details[index].Activated {
-			priority := image.Priority
-
-			if _, ok := imageMap[priority]; !ok {
-				imageMap[priority] = image.RemoteLink
-			} else {
-				for {
-					priority++
-					if _, ok := imageMap[priority]; !ok {
-						imageMap[priority] = image.RemoteLink
-						break
-					}
-				}
-			}
-		}
-	}
-
-	if index == 0 {
-		imagePath = path.Join(imagePath, "de")
-	} else {
-		imagePath = path.Join(imagePath, "en")
-	}
 
 	if _, err := os.Stat(imagePath); os.IsNotExist(err) {
 		if err := os.MkdirAll(imagePath, os.ModePerm); err != nil {

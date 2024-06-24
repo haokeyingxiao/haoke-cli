@@ -281,7 +281,7 @@ func validatePHPFiles(c context.Context, ctx *ValidationContext) {
 }
 
 func GetPhpVersion(ctx context.Context, constraint *version.Constraints) (string, error) {
-	r, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "https://raw.githubusercontent.com/FriendsOfShopware/shopware-static-data/main/data/php-version.json", http.NoBody)
+	r, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "https://gitlab.com/gouez/haoke/raw/main/php-version.json", http.NoBody)
 
 	resp, err := http.DefaultClient.Do(r)
 	if err != nil {

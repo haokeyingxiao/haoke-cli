@@ -188,14 +188,7 @@ func (e ProducerEndpoint) UpdateExtensionIcon(ctx context.Context, extensionId i
 type ExtensionImage struct {
 	Id         string `json:"id"`
 	RemoteLink string `json:"remoteLink"`
-	Details    []struct {
-		Id        string `json:"id"`
-		Preview   bool   `json:"preview"`
-		Activated bool   `json:"activated"`
-		Caption   string `json:"caption"`
-		Locale    Locale `json:"locale"`
-	} `json:"details"`
-	Priority int `json:"priority"`
+	Priority   int    `json:"priority"`
 }
 
 func (e ProducerEndpoint) GetExtensionImages(ctx context.Context, extensionId int) ([]*ExtensionImage, error) {
@@ -330,7 +323,7 @@ func (e ProducerEndpoint) GetBinaryReviewResults(ctx context.Context, extensionI
 }
 
 type BinaryReviewResult struct {
-	BinaryId string `json:"binaryId"`
+	BinaryId int `json:"binaryId"`
 	Type     struct {
 		Id          int    `json:"id"`
 		Name        string `json:"name"`

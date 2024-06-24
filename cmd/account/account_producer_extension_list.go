@@ -26,7 +26,7 @@ var accountCompanyProducerExtensionListCmd = &cobra.Command{
 		if len(listExtensionSearch) > 0 {
 			criteria.Search = listExtensionSearch
 			criteria.OrderBy = "name"
-			criteria.OrderSequence = "asc"
+			criteria.OrderSequence = "DESC"
 		}
 
 		extensions, err := p.Extensions(cmd.Context(), &criteria)

@@ -172,20 +172,23 @@ type Extension struct {
 		Videos             []StoreVideo `json:"videos"`
 		Faqs               []StoreFaq   `json:"faqs"`
 	} `json:"infos"`
-	PriceModels                         []interface{}      `json:"priceModels"`
-	Variants                            []interface{}      `json:"variants"`
-	StoreAvailabilities                 []StoreAvailablity `json:"storeAvailabilities"`
-	Categories                          []StoreCategory    `json:"categories"`
-	Category                            *StoreCategory     `json:"selectedFutureCategory"`
-	Addons                              []interface{}      `json:"addons"`
-	Localizations                       []Locale           `json:"localizations"`
-	AutomaticBugfixVersionCompatibility bool               `json:"automaticBugfixVersionCompatibility"`
-	ProductType                         *StoreProductType  `json:"productType"`
+	PriceModels                         *StorePrice       `json:"priceModels"`
+	Variants                            []interface{}     `json:"variants"`
+	Categories                          []StoreCategory   `json:"categories"`
+	Category                            *StoreCategory    `json:"selectedFutureCategory"`
+	Addons                              []interface{}     `json:"addons"`
+	AutomaticBugfixVersionCompatibility bool              `json:"automaticBugfixVersionCompatibility"`
+	ProductType                         *StoreProductType `json:"productType"`
 	Status                              struct {
 		Name string `json:"name"`
 	} `json:"status"`
 	IconURL                               string `json:"iconUrl"`
 	IsCompatibleWithLatestShopwareVersion bool   `json:"isCompatibleWithLatestShopwareVersion"`
+}
+
+type StorePrice struct {
+	Type  string  `json:"type"`
+	Money float32 `json:"money"`
 }
 
 type CreateExtensionRequest struct {
@@ -278,19 +281,13 @@ func (e ProducerEndpoint) GetSoftwareVersions(ctx context.Context, generation st
 }
 
 type SoftwareVersion struct {
-	Name       string `json:"name"`
+	Name       string `json:"version"`
 	Selectable bool   `json:"selectable"`
 }
 
 type Locale struct {
 	Id   int    `json:"id"`
 	Name string `json:"name"`
-}
-
-type StoreAvailablity struct {
-	Id          int    `json:"id"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
 }
 
 type StoreCategory struct {
@@ -361,11 +358,9 @@ type ExtensionGeneralInformation struct {
 		Name        string `json:"name"`
 		Description string `json:"description"`
 	} `json:"licenses"`
-	StoreAvailabilities  []StoreAvailablity  `json:"storeAvailabilities"`
 	PriceModels          []interface{}       `json:"priceModels"`
 	SoftwareVersions     SoftwareVersionList `json:"softwareVersions"`
 	DemoTypes            interface{}         `json:"demoTypes"`
-	Localizations        []Locale            `json:"localizations"`
 	ProductTypes         []StoreProductType  `json:"productTypes"`
 	ReleaseRequestStatus interface{}         `json:"releaseRequestStatus"`
 }
