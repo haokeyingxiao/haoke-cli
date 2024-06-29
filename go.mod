@@ -22,8 +22,8 @@ require (
 	github.com/stretchr/testify v1.9.0
 	github.com/tetratelabs/wazero v1.7.3
 	github.com/vulcand/oxy/v2 v2.0.0
-	github.com/wI2L/jsondiff v0.5.2
-	github.com/yuin/goldmark v1.7.2
+	github.com/wI2L/jsondiff v0.6.0
+	github.com/yuin/goldmark v1.7.3
 	go.uber.org/zap v1.27.0
 	gopkg.in/yaml.v3 v3.0.1
 )

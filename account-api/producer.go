@@ -291,7 +291,7 @@ type Locale struct {
 }
 
 type StoreCategory struct {
-	Id          int         `json:"id"`
+	Id          string      `json:"id"`
 	Name        string      `json:"name"`
 	Description string      `json:"description"`
 	Parent      interface{} `json:"parent"`
