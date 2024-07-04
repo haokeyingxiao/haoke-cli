@@ -8,7 +8,7 @@ require (
 	github.com/bep/godartsass/v2 v2.0.0
 	github.com/caarlos0/env/v9 v9.0.0
 	github.com/doutorfinancas/go-mad v0.0.0-20240205120830-463c1e9760f0
-	github.com/evanw/esbuild v0.22.0
+	github.com/evanw/esbuild v0.23.0
 	github.com/google/uuid v1.6.0
 	github.com/gorilla/schema v1.4.1
 	github.com/haokeyingxiao/go-haoke-admin-api-sdk v0.0.0-20240526035110-836e658ce340
