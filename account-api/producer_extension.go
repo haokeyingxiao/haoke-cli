@@ -188,7 +188,14 @@ func (e ProducerEndpoint) UpdateExtensionIcon(ctx context.Context, extensionId i
 type ExtensionImage struct {
 	Id         string `json:"id"`
 	RemoteLink string `json:"remoteLink"`
-	Priority   int    `json:"priority"`
+	Details    []struct {
+		Id        int    `json:"id"`
+		Preview   bool   `json:"preview"`
+		Activated bool   `json:"activated"`
+		Caption   string `json:"caption"`
+		Locale    Locale `json:"locale"`
+	} `json:"details"`
+	Priority int `json:"priority"`
 }
 
 func (e ProducerEndpoint) GetExtensionImages(ctx context.Context, extensionId int) ([]*ExtensionImage, error) {

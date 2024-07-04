@@ -259,6 +259,30 @@ func downloadFileTo(ctx context.Context, url string, target string) error {
 func writeImages(ctx context.Context, imagePath string, index int, storeImages []*account_api.ExtensionImage) error {
 	imageMap := make(map[int]string)
 
+	for _, image := range storeImages {
+		if image.Details[index].Activated {
+			priority := image.Priority
+
+			if _, ok := imageMap[priority]; !ok {
+				imageMap[priority] = image.RemoteLink
+			} else {
+				for {
+					priority++
+					if _, ok := imageMap[priority]; !ok {
+						imageMap[priority] = image.RemoteLink
+						break
+					}
+				}
+			}
+		}
+	}
+
+	if index == 0 {
+		imagePath = path.Join(imagePath, "de")
+	} else {
+		imagePath = path.Join(imagePath, "en")
+	}
+
 	if _, err := os.Stat(imagePath); os.IsNotExist(err) {
 		if err := os.MkdirAll(imagePath, os.ModePerm); err != nil {
 			return err

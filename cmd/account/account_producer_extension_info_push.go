@@ -113,6 +113,9 @@ var accountCompanyProducerExtensionInfoPushCmd = &cobra.Command{
 					if err := uploadImagesByDirectory(cmd.Context(), storeExt.Id, path.Join(zipExt.GetPath(), *extCfg.Store.ImageDirectory), 1, p); err != nil {
 						return err
 					}
+					if err := uploadImagesByDirectory(cmd.Context(), storeExt.Id, path.Join(zipExt.GetPath(), *extCfg.Store.ImageDirectory), 2, p); err != nil {
+						return err
+					}
 				} else {
 					// manually specified images
 					for _, configImage := range *extCfg.Store.Images {
@@ -298,15 +301,14 @@ func parseInlineablePath(path, extensionDir string) (string, error) {
 }
 
 func uploadImagesByDirectory(ctx context.Context, extensionId int, directory string, index int, p *accountApi.ProducerEndpoint) error {
-	// index 0 is for german, 1 for english defined by account api
-	if index == 0 {
+	switch index {
+	case 0:
 		directory = path.Join(directory, "de")
-	} else if index == 1 {
+	case 1:
 		directory = path.Join(directory, "en")
-	} else {
+	default:
 		directory = path.Join(directory, "zh")
 	}
-
 	images, err := os.ReadDir(directory)
 
 	// When folder does not exists, skip
