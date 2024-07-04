@@ -30,8 +30,8 @@ jobs:
       - name: Checkout Plugin
         uses: actions/checkout@v4
         with:
-          repository: 'haokeyingxiao-hub/FroshTools'
-          ref: '327f3dfc3008628d7fbf33b86a61ca94c350d3c4'
+          repository: 'haokeyingxiao-hub/HkagTools'
+          ref: 'bc2c28aa7a635aea11fa3b37488711be550a6b84'
           path: 'plugin'
 
       - name: Create HaoKe
