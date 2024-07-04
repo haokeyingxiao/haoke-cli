@@ -44,10 +44,10 @@ jobs:
         run: ./haoke-cli extension zip plugin --disable-git --release
 
       - name: Validate Plugin
-        run: ./haoke-cli extension validate FroshTools.zip
+        run: ./haoke-cli extension validate HkagTools.zip
 
       - name: Get Changelog
-        run: ./haoke-cli extension get-changelog FroshTools.zip
+        run: ./haoke-cli extension get-changelog HkagTools.zip
 
       - name: Build asset against custom PROJECT_ROOT
         env:
