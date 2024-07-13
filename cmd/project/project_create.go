@@ -139,7 +139,7 @@ func getFilteredInstallVersions(ctx context.Context) ([]*version.Version, error)
 	}
 
 	filteredVersions := make([]*version.Version, 0)
-	constraint, _ := version.NewConstraint(">=6.6.4.7")
+	constraint, _ := version.NewConstraint(">=6.6.5.0")
 
 	for _, release := range releases {
 		parsed := version.Must(version.NewVersion(release))
