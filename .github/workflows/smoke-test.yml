@@ -35,7 +35,7 @@ jobs:
           path: 'plugin'
 
       - name: Create HaoKe
-        run: ./haoke-cli project create haoke 6.6.5.0
+        run: ./haoke-cli project create haoke 6.6.5.3
 
       - name: Build asset of Plugin
         run: ./haoke-cli extension zip plugin
