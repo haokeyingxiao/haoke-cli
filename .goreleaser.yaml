@@ -50,8 +50,34 @@ archives:
     files:
       - LICENSE
       - completions/*
-
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^Merge pull request:'
 release:
   github:
     owner: haokeyingxiao
     name: haoke-cli
+
+nfpms:
+  -
+    package_name: haoke-cli
+    vendor: haokeyingxiao
+    homepage: https://github.com/haokeyingxiao/haoke-cli/
+    maintainer: Haoke <lyricsong47@gmail.com>
+    description: A cli which contains handy helpful commands for daily Haoke tasks
+    license: MIT
+    contents:
+      - src: ./completions/haoke-cli.bash
+        dst: /etc/bash_completion.d/haoke-cli
+      - src: ./completions/haoke-cli.fish
+        dst: /usr/share/fish/completions/haoke-cli.fish
+      - src: ./completions/haoke-cli.zsh
+        dst: /usr/local/share/zsh/site-functions/_haoke-cli
+    formats:
+      - apk
+      - deb
+      - rpm
